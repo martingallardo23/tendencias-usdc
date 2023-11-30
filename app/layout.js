@@ -4,7 +4,7 @@ import LeftPanel from './LeftPanel'
 export const metadata = {
   title: 'USDC Trends',
   description: 'USDC exchange rates in Argentina',
-  google: 'notranslate',
+  google: 'notranslate'
 }
 
 export default function RootLayout({ children }) {

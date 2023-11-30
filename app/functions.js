@@ -209,7 +209,6 @@ export function drawLineChart(rawData, priceType, timeType) {
       .ease(d3.easeSinIn) 
       .attr('stroke-dashoffset', 0);
 
-         
       g.append('path')
             .datum(data)
             .attr('class', 'line-overlay')
@@ -315,8 +314,8 @@ export function drawBrokerChart(data, priceType, timeType) {
 
         path.attr('stroke-dasharray', totalLength + " " + totalLength)
             .attr('stroke-dashoffset', totalLength)
-            .transition()
-            .duration(300)
+            .transition('transition'+broker)
+            .duration(200)
             .ease(d3.easeSinIn)
             .attr('stroke-dashoffset', 0);
             
