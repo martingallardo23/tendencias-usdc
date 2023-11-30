@@ -3,30 +3,7 @@ import { useEffect } from "react";
 import { useStore } from "@/store/zustand";
 
 const Chart = () => {
-    const [rawData, bidData, askData, spreadData, 
-        brokerBidData, brokerAskData,  brokerSpreadData, priceType, chartType, timeType] = useStore((state) => [state.rawData, state.averageBidData, state.averageAskData,
-        state.averageSpreadData, state.brokerBidData, state.brokerAskData, state.brokerSpreadData, state.priceType, state.chartType, state.timeType]);
-
-    if (priceType === 'ask') {
-        if (chartType === 'broker') {
-            var data = brokerAskData;
-        } else if (chartType === 'average') {
-            var data = askData;
-        }
-    } else if (priceType === 'bid') {
-        if (chartType === 'broker') {
-            var data = brokerBidData;
-        } else if (chartType === 'average') {
-            var data = bidData;
-        }
-    } else if (priceType === 'spread') {
-        if (chartType === 'broker') {
-            var data = brokerSpreadData;
-        } else if (chartType === 'average') {
-            var data = spreadData;
-        }
-    }
-
+    const [rawData, priceType, chartType, timeType] = useStore((state) => [state.rawData, state.priceType, state.chartType, state.timeType]);
     useEffect(() => {
         if (chartType === 'broker') {
             drawBrokerChart(rawData, priceType, timeType);
