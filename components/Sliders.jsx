@@ -118,7 +118,7 @@ export const BrokerList = () => {
           {Object.keys(brokersVisible).map(broker => (
               <Toggle className = "rounded-full data-[state=on]:bg-[#0F5734]
               data-[state=on]:text-[#D7EAD7] data-[state=off]:text-[#D7EAD7] hover:bg-[#12693F]
-              hover:text-black hover:outline " name = {broker} defaultPressed = {brokersVisible[broker]} key = {broker}
+              hover:text-black data-[state=on]:hover:outline " name = {broker} defaultPressed = {brokersVisible[broker]} key = {broker}
               onPressedChange = {handleBrokerVisibilityChange} onMouseOver = {hoverOver} onMouseOut = {hoverOut} >
                 {broker.charAt(0).toUpperCase() + broker.slice(1)}
                 </Toggle>

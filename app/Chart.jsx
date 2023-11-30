@@ -11,11 +11,12 @@ const Chart = () => {
     
     useEffect(() => {
         function updateDimensions() {
+            const isDesktop = window.matchMedia("(min-width: 768px)").matches;
             const chartContainer = document.querySelector('#chartContainer');
             if (chartContainer) {
                 setDimensions({
-                    width: chartContainer.clientWidth,
-                    height: chartContainer.clientHeight
+                    width: isDesktop? 0.8 * chartContainer.clientWidth : chartContainer.clientWidth * 0.95,
+                    height: isDesktop ? (2 * chartContainer.clientHeight)/3 : chartContainer.clientHeight * 0.9
                 });
             }
         }
@@ -25,7 +26,7 @@ const Chart = () => {
         window.addEventListener('resize', updateDimensions);
         
         return () => window.removeEventListener('resize', updateDimensions);
-    }, []); // Empty dependency array ensures this runs once on mount
+    }, []); 
     
 
     useEffect(() => {
@@ -38,10 +39,11 @@ const Chart = () => {
         }
 
     }, [dimensions, rawData, priceType, chartType, timeType]);
+
     return (
         <>  
              {dimensions.width && dimensions.height && (
-                <svg width={0.8 * dimensions.width} height={(2 * dimensions.height) / 3} id="chart"></svg>
+                <svg width={dimensions.width} height={ dimensions.height} id="chart"></svg>
             )}
             <div id="tooltip" style={{ position: 'absolute', visibility: 'hidden', backgroundColor: '#F2F8F2', padding: '10px 20px', borderRadius: '9999px', pointerEvents: 'none' , color: "black"}}></div>
         </>
