@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <LeftPanel />
-        <div className="flex flex-row justify-center items-center m-auto">
+        <div className="flex flex-row justify-center items-center h-auto w-[70%]" id = "chartContainer">
           {children}
         </div>
       </body>

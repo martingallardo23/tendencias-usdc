@@ -113,3 +113,8 @@ body {
   padding: 10px 20px;
   background-color: #157A49;
 }
+
+svg {
+  max-width:100%;
+  height:auto
+}
