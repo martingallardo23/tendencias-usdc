@@ -144,8 +144,6 @@ function parsePrice (value, valueType) {
 function parseDate (value, timeType) {
 
     const date = d3.isoParse(value);
-    
-    console.log(date, timeType)
 
     switch(timeType) {
         case '30m':
@@ -298,8 +296,8 @@ export function drawBrokerChart(data, priceType, timeType) {
         .y(d => y(d.value));
 
     Object.keys(dataByBroker).forEach(broker => {
+
         const data = dataByBroker[broker];
-        console.log(data)
 
         const path = g.append('path')
             .datum(data)

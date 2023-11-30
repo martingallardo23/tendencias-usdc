@@ -80,8 +80,7 @@ export const BrokerList = () => {
 
     function handleBrokerVisibilityChange() {
       const broker = event.target.name;
-      const isVisible = event.target.ariaPressed == 'true';
-      console.log(broker, isVisible)      
+      const isVisible = event.target.ariaPressed == 'true';    
       setBrokersVisible({ ...brokersVisible, [broker]: isVisible})
       d3.select(`#line${broker}`)
       .transition()
