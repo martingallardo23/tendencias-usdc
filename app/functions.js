@@ -141,6 +141,25 @@ function parsePrice (value, valueType) {
 
 }
 
+function parseDate (value, timeType) {
+
+    const date = d3.isoParse(value);
+    
+    console.log(date, timeType)
+
+    switch(timeType) {
+        case '30m':
+            return d3.timeFormat('%d/%m/%Y %H:%M')(date);
+        case '1h':
+            return d3.timeFormat('%d/%m/%Y %H:%M')(date);
+        case '12h':
+            return d3.timeFormat('%d/%m/%Y %H:%M')(date);
+        case '24h':
+            return d3.timeFormat('%d/%m/%Y')(date);
+    }
+
+}
+
 export function drawLineChart(rawData, priceType, timeType) {
 
     const data = calculateAverageData(rawData, priceType, timeType);
@@ -151,6 +170,10 @@ export function drawLineChart(rawData, priceType, timeType) {
         .curve(d3.curveMonotoneX)
       .x(d => x(d3.isoParse(d.created_at)))
       .y(d => y(d.average_data));
+
+    const yAxis = d3.axisLeft(y).tickFormat(d => {
+        return priceType === 'spread' ? `${(d * 100).toFixed(2)}` : `$${d}`;
+    });
   
     x.domain(d3.extent(data, d => d3.isoParse(d.created_at)));
     y.domain(d3.extent(data, d => d.average_data));
@@ -160,14 +183,14 @@ export function drawLineChart(rawData, priceType, timeType) {
       .call(d3.axisBottom(x))
   
     g.append('g')
-      .call(d3.axisLeft(y))
+      .call(yAxis)
       .append('text')
       .attr('fill', axisConfig.color)
       .attr('transform', 'rotate(-90)')
       .attr('y', 6)
       .attr('dy', '0.71em')
       .attr('text-anchor', 'end')
-      .text('Price');
+      .text(priceType === 'ask' || priceType === 'bid' ? '$ARS' : '%');
 
     const path = g.append('path')
         .datum(data)
@@ -205,11 +228,13 @@ export function drawLineChart(rawData, priceType, timeType) {
                 const nearestDataPoint = findNearestDataPoint(mouseX, data, x);
                 if (nearestDataPoint) {
                     d3.select('#tooltip')
-                        .html(`<span class="tooltip-title" style="color:${axisConfig.color}">Average</span>
+                        .html(`<span class="tooltip-title" style="color:${axisConfig.color}">Promedio</span>
                                <span class="tooltip-price">
                                ${parsePrice(nearestDataPoint.average_data, priceType)}
                                </span>
-                               <div class="tooltip-date">${d3.timeFormat('%d/%m/%Y')(d3.isoParse(nearestDataPoint.created_at))}</div>`)
+                               <div class="tooltip-date">
+                                ${parseDate(nearestDataPoint.created_at, timeType)}
+                                </div>`)
                         .style('top', (event.pageY - 10) + 'px')
                         .style('left', (event.pageX + 10) + 'px');
 
@@ -241,6 +266,10 @@ export function drawBrokerChart(data, priceType, timeType) {
 
     const { svg, g, x, y, width, height } = setupChart();
 
+    const yAxis = d3.axisLeft(y).tickFormat(d => {
+        return priceType === 'spread' ? `${(d * 100).toFixed(2)}` : `$${d}`;
+    });
+
     const xMin = d3.min(Object.values(dataByBroker), brokerData => d3.min(brokerData, d => new Date(d.created_at)));
     const xMax = d3.max(Object.values(dataByBroker), brokerData => d3.max(brokerData, d => new Date(d.created_at)));    
     const yMin = d3.min(Object.values(dataByBroker), brokerData => d3.min(brokerData, d => d.value));
@@ -254,14 +283,14 @@ export function drawBrokerChart(data, priceType, timeType) {
         .call(d3.axisBottom(x));
 
     g.append('g')
-        .call(d3.axisLeft(y))
+        .call(yAxis)
         .append('text')
         .attr('fill', axisConfig.color)
         .attr('transform', 'rotate(-90)')
         .attr('y', 6)
         .attr('dy', '0.71em')
         .attr('text-anchor', 'end')
-        .text('Price');
+        .text(priceType === 'ask' || priceType === 'bid' ? '$ARS' : '%');
 
     const line = d3.line()
         .curve(d3.curveMonotoneX)
@@ -324,7 +353,7 @@ export function drawBrokerChart(data, priceType, timeType) {
                         ${parsePrice(nearestDataPoint.value, priceType)}
                     </span>
                     <div class="tooltip-date">
-                        ${d3.timeFormat('%d/%m/%Y')(d3.isoParse(nearestDataPoint.created_at))}
+                        ${parseDate(nearestDataPoint.created_at, timeType)}
                     </div>`)
                     .style('top', (event.pageY - 10) + 'px')
                     .style('left', (event.pageX + 10) + 'px');

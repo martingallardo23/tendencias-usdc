@@ -103,3 +103,13 @@ body {
   font-size: 0.85rem;
   font-weight: 400;
 }
+
+.title {
+  color: #F2F8F2;
+  font-size: 1.6rem;
+  font-weight: 700;
+  border: 3px solid #F2F8F2;
+  border-radius: 9999px;
+  padding: 10px 20px;
+  background-color: #157A49;
+}

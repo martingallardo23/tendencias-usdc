@@ -14,7 +14,7 @@ export const TimeSlider = () => {
     
     return (
         <div className = 'flex flex-row rounded-full border pl-6 pr-3 pt-2 pb-2 bg-[#D7EAD7] gap-4 items-center'> 
-            <span className = 'font-bold text-lg'>Time</span> 
+            <span className = 'font-bold text-lg'>Período</span> 
             <Tabs defaultValue = '30m' className = 'flex flex-row gap-3 bg-none'>
               <TabsList>
               <TabsTrigger value = '30m' onClick={() => seTimeType('30m')}>30m</TabsTrigger>
@@ -35,11 +35,11 @@ export const TypeSlider = () => {
     
     return (
         <div className = 'flex flex-row rounded-full border pl-6 pr-3 pt-2 pb-2 bg-[#D7EAD7] gap-4 items-center'> 
-            <span className = 'font-bold text-lg'>Type</span> 
+            <span className = 'font-bold text-lg'>Precio</span> 
             <Tabs defaultValue = 'bids' className = 'flex flex-row gap-3 bg-none'>
               <TabsList>
-              <TabsTrigger value = 'bids' onClick={() => setPriceType('bid')}>Bids</TabsTrigger>
-              <TabsTrigger value = 'ask' onClick={() => setPriceType('ask')}>Asks</TabsTrigger>
+              <TabsTrigger value = 'bids' onClick={() => setPriceType('bid')}>Venta</TabsTrigger>
+              <TabsTrigger value = 'ask' onClick={() => setPriceType('ask')}>Compra</TabsTrigger>
               <TabsTrigger value = 'spread' onClick={() => setPriceType('spread')}> Spread </TabsTrigger>
               </TabsList>
             </Tabs>
@@ -55,11 +55,11 @@ export const ChartTypeSlider = () => {
 
     return (
         <div className = 'flex flex-row rounded-full border pl-6 pr-3 pt-2 pb-2 bg-[#D7EAD7] gap-4 items-center'> 
-            <span className = 'font-bold text-lg'>Statistic</span> 
+            <span className = 'font-bold text-lg'>Tipo</span> 
             <Tabs defaultValue = 'bids' className = 'flex flex-row gap-3 bg-none'>
               <TabsList>
-              <TabsTrigger value = 'bids' onClick={() => setChartType('average')}>Average</TabsTrigger>
-              <TabsTrigger value = 'ask' onClick={() => setChartType('broker')}>All</TabsTrigger>
+              <TabsTrigger value = 'bids' onClick={() => setChartType('average')}>Promedio</TabsTrigger>
+              <TabsTrigger value = 'ask' onClick={() => setChartType('broker')}>Todos</TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
