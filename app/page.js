@@ -26,7 +26,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className = 'flex flex-row items-center justify-center m-auto'>
+    <div className = 'flex flex-row items-center justify-center m-auto h-full'>
         <Chart/>
     </div>
   )

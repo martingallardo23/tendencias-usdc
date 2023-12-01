@@ -15,7 +15,7 @@ const Chart = () => {
             const chartContainer = document.querySelector('#chartContainer');
             if (chartContainer) {
                 setDimensions({
-                    width: isDesktop? 0.8 * chartContainer.clientWidth : chartContainer.clientWidth * 0.98,
+                    width: isDesktop ? 0.8 * chartContainer.clientWidth : chartContainer.clientWidth * 0.98,
                     height: isDesktop ? (2 * chartContainer.clientHeight)/3 : chartContainer.clientHeight * 0.95
                 });
             }
