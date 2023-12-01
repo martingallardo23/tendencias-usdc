@@ -341,7 +341,7 @@ export function drawBrokerChart(data, priceType, timeType) {
             .attr('id', 'lineOverlay'+broker)
             .style('display', brokersVisible[broker] ? 'block' : 'none')
             .style('stroke', 'transparent') 
-            .style('stroke-width', 20) 
+            .style('stroke-width', 25) 
             .on('mouseover', function(event, d) {
 
                 d3.select('#line'+broker)
@@ -351,6 +351,8 @@ export function drawBrokerChart(data, priceType, timeType) {
                 
                     d3.select('#tooltip')
                     .style('visibility', 'visible')
+                    const lineToTop = d3.select(this);
+                    lineToTop.node().parentNode.appendChild(lineToTop.node());
                     
                 })
             .on('mousemove', function(event, d) {
