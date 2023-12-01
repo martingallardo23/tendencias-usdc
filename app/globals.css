@@ -83,6 +83,7 @@ body {
   background: #F2F8F2;
   display:flex;
   flex-direction:row;
+  overflow-x:hidden;
 }
 
 .container {
@@ -133,7 +134,7 @@ svg {
     gap:30px;
   }
   #chartContainer {
-    height:60vh;
+    height:50vh;
     width:100%;
   }
 }
