@@ -235,6 +235,7 @@ export function drawLineChart(rawData, priceType, timeType) {
                     if (left + tooltipWidth > pageWidth) {
                         left = event.pageX - tooltipWidth - 10; 
                     }
+
                     tooltip
                         .html(`<span class="tooltip-title" style="color:${axisConfig.color}">Promedio</span>
                                <span class="tooltip-price">
@@ -356,7 +357,14 @@ export function drawBrokerChart(data, priceType, timeType) {
                 const mouseX = d3.pointer(event)[0];
                 const nearestDataPoint = findNearestDataPoint(mouseX, data, x);
                 if (nearestDataPoint) {
-                    d3.select('#tooltip')
+                    const tooltip = d3.select('#tooltip');
+                    const tooltipWidth = tooltip.node().getBoundingClientRect().width;
+                    const pageWidth = document.body.clientWidth;
+                    let left = event.pageX + 10; 
+                    if (left + tooltipWidth > pageWidth) {
+                        left = event.pageX - tooltipWidth - 10; 
+                    }
+                    tooltip
                     .style('visibility', 'visible')
                     .html(`<span class="tooltip-title" style="color:${getColor(broker)}">${broker.charAt(0).toUpperCase() + broker.slice(1)}</span>
                     <span class="tooltip-price">
@@ -366,7 +374,7 @@ export function drawBrokerChart(data, priceType, timeType) {
                         ${parseDate(nearestDataPoint.created_at, timeType)}
                     </div>`)
                     .style('top', (event.pageY - 10) + 'px')
-                    .style('left', (event.pageX + 10) + 'px');
+                    .style('left', left + 'px');
 
                     g.selectAll(".hover-dot").remove(); 
                     g.append("circle")
