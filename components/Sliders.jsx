@@ -13,7 +13,7 @@ export const TimeSlider = () => {
 
     
     return (
-        <div className = 'flex flex-row rounded-full border pl-6 pr-3 pt-2 pb-2 bg-[#D7EAD7] gap-4 items-center'> 
+        <div className = 'flex flex-row rounded-full border pl-6 pr-3 pt-2 pb-2 bg-[#D7EAD7] gap-4 items-center slider'> 
             <span className = 'font-bold text-lg'>Período</span> 
             <Tabs defaultValue = '30m' className = 'flex flex-row bg-none'>
               <TabsList className= 'flex flex-row gap-2'>
@@ -34,7 +34,7 @@ export const TypeSlider = () => {
 
     
     return (
-        <div className = 'flex flex-row rounded-full border pl-6 pr-3 pt-2 pb-2 bg-[#D7EAD7] gap-4 items-center'> 
+        <div className = 'flex flex-row rounded-full border pl-6 pr-3 pt-2 pb-2 bg-[#D7EAD7] gap-4 items-center slider'> 
             <span className = 'font-bold text-lg'>Precio</span> 
             <Tabs defaultValue = 'bids' className = 'flex flex-row bg-none'>
               <TabsList className= 'flex flex-row gap-2'>
@@ -54,7 +54,7 @@ export const ChartTypeSlider = () => {
       ]);
 
     return (
-        <div className = 'flex flex-row rounded-full border pl-6 pr-3 pt-2 pb-2 bg-[#D7EAD7] gap-4 items-center'> 
+        <div className = 'flex flex-row rounded-full border pl-6 pr-3 pt-2 pb-2 bg-[#D7EAD7] gap-4 items-center slider'> 
             <span className = 'font-bold text-lg'>Tipo</span> 
             <Tabs defaultValue = 'bids' className = 'flex flex-row bg-none'>
               <TabsList className= 'flex flex-row gap-2'>
@@ -114,7 +114,7 @@ export const BrokerList = () => {
 
     if (chartType == 'broker') {
       return(
-          <div className = 'text-white w-[70%] flex gap-3 flex-wrap mt-4'>
+          <div className = 'text-white w-[70%] flex gap-3 flex-wrap mt-4 broker-list'>
           {Object.keys(brokersVisible).map(broker => (
               <Toggle className = "rounded-full data-[state=on]:bg-[#0F5734]
               data-[state=on]:text-[#D7EAD7] data-[state=off]:text-[#D7EAD7] hover:bg-[#12693F]

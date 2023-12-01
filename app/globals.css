@@ -84,6 +84,7 @@ body {
   display:flex;
   flex-direction:row;
   overflow-x:hidden;
+  align-items: center;
 }
 
 .container {
@@ -113,7 +114,7 @@ body {
   border: 3px solid #F2F8F2;
   border-radius: 9999px;
   padding: 10px 20px;
-  background-color: #157A49;
+  background-color: #12693F;
 }
 
 svg {
@@ -121,6 +122,17 @@ svg {
   height:auto
 }
 
+.title-secondary {
+  display: none;
+  margin-top:20px;
+  border-radius:9999px;
+  padding:5px 20px;
+  background-color: #E4F1E4;
+  color:#157A49;
+  font-size:1.1rem;
+  font-weight:700;
+
+}
 /* make the flex-direction of body to column for mobile screens */
 
 @media (max-width: 768px) {
@@ -134,7 +146,26 @@ svg {
     gap:30px;
   }
   #chartContainer {
-    height:50vh;
+    height:40vh;
     width:100%;
+  }
+
+  .tooltip-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .tooltip-price {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .title {
+    display:none;
+  }
+  .title-secondary {
+    display:block;
+  }
+  .broker-list {
+    width:85%;
   }
 }

@@ -161,8 +161,8 @@ function parseDate (value, timeType) {
 
 export function drawLineChart(rawData, priceType, timeType) {
 
-    const data = calculateAverageData(rawData, priceType, timeType);
     d3.select('#chart').selectAll('*').remove();
+    const data = calculateAverageData(rawData, priceType, timeType);
     const { svg, g, x, y, width, height } = setupChart();
   
     const line = d3.line()
@@ -170,7 +170,9 @@ export function drawLineChart(rawData, priceType, timeType) {
       .x(d => x(d3.isoParse(d.created_at)))
       .y(d => y(d.average_data));
 
-    const yAxis = d3.axisLeft(y).tickFormat(d => {
+    const yAxis = d3.axisLeft(y)
+    .ticks(5)
+    .tickFormat(d => {
         return priceType === 'spread' ? `${(d * 100).toFixed(2)}` : `$${d}`;
     });
   
@@ -179,7 +181,7 @@ export function drawLineChart(rawData, priceType, timeType) {
   
     g.append('g')
       .attr('transform', `translate(0,${height})`)
-      .call(d3.axisBottom(x))
+      .call(d3.axisBottom(x).ticks(8))
   
     g.append('g')
       .call(yAxis)
@@ -272,7 +274,9 @@ export function drawBrokerChart(data, priceType, timeType) {
 
     const { svg, g, x, y, width, height } = setupChart();
 
-    const yAxis = d3.axisLeft(y).tickFormat(d => {
+    const yAxis = d3.axisLeft(y)
+    .ticks(5)
+    .tickFormat(d => {
         return priceType === 'spread' ? `${(d * 100).toFixed(2)}` : `$${d}`;
     });
 
@@ -286,7 +290,7 @@ export function drawBrokerChart(data, priceType, timeType) {
 
     g.append('g')
         .attr('transform', `translate(0,${height})`)
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x).ticks(8));
 
     g.append('g')
         .call(yAxis)

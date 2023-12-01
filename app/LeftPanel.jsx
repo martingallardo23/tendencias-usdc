@@ -12,7 +12,9 @@ const LeftPanel = () => {
         <BrokerList/>
 
         </div>
-        <div>
+        <div className = 'text-sm text-white text-center'>
+        <span>Elaborado por Martín Gallardo a partir de <a href = 'https://usdthoy.ar'>usdthoy.ar</a> (<a href='https://twitter.com/ferminrp'>@ferminrp</a>). </span>
+
         </div>
         </div>
     )

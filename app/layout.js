@@ -21,6 +21,10 @@ export default function RootLayout({ children }) {
         <div className="flex flex-row justify-center items-center h-auto w-[70%]" id = "chartContainer">
           {children}
         </div>
+        <div className = 'title-secondary'>
+          USDC / ARS Trends
+        </div>
+
       </body>
     </html>
   )
