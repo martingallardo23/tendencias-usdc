@@ -133,12 +133,14 @@ svg {
   font-weight:700;
 
 }
-/* make the flex-direction of body to column for mobile screens */
+
+button, a, input, textarea, [role="button"] {
+  -webkit-tap-highlight-color: transparent; 
+  touch-action: manipulation; 
+  outline: none; 
+}
 
 @media (max-width: 768px) {
-  button {
-      -webkit-tap-highlight-color: transparent;
-  }
   body {
     flex-direction:column-reverse;
   }
