@@ -2,8 +2,8 @@ import './globals.css'
 import LeftPanel from './LeftPanel'
 
 export const metadata = {
-  title: 'USDC Trends',
-  description: 'USDC exchange rates in Argentina',
+  title: 'Tendencias USDC',
+  description: 'Serie histórica de USDC / ARS',
   google: 'notranslate'
 }
 
@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
           {children}
         </div>
         <div className = 'title-secondary'>
-          USDC / ARS Trends
+          Tendencias USDC
         </div>
 
       </body>
