@@ -136,6 +136,9 @@ svg {
 /* make the flex-direction of body to column for mobile screens */
 
 @media (max-width: 768px) {
+  button {
+      -webkit-tap-highlight-color: transparent;
+  }
   body {
     flex-direction:column-reverse;
   }

@@ -291,7 +291,7 @@ export function drawBrokerChart(data, priceType, timeType) {
 
     g.append('g')
         .attr('transform', `translate(0,${height})`)
-        .call(d3.axisBottom(x).ticks(8));
+        .call(d3.axisBottom(x).ticks(7));
 
     g.append('g')
         .call(yAxis)
