@@ -13,10 +13,10 @@ export const TimeSlider = () => {
 
     
     return (
-        <div className = 'flex flex-row rounded-full border pl-6 pr-3 pt-2 pb-2 bg-[#D7EAD7] gap-4 items-center slider'> 
+        <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[#D7EAD7] gap-3 items-center slider'> 
             <span className = 'font-bold text-lg'>Período</span> 
             <Tabs defaultValue = '30m' className = 'flex flex-row bg-none'>
-              <TabsList className= 'flex flex-row gap-2'>
+              <TabsList className= 'flex flex-row gap-1'>
               <TabsTrigger value = '30m' onClick={() => seTimeType('30m')}>30m</TabsTrigger>
               <TabsTrigger value = '1h' onClick={() => seTimeType('1h')}>1h</TabsTrigger>
               <TabsTrigger value = '12h' onClick={() => seTimeType('12h')}> 12h </TabsTrigger>
@@ -34,10 +34,10 @@ export const TypeSlider = () => {
 
     
     return (
-        <div className = 'flex flex-row rounded-full border pl-6 pr-3 pt-2 pb-2 bg-[#D7EAD7] gap-4 items-center slider'> 
+        <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[#D7EAD7] gap-3 items-center slider'> 
             <span className = 'font-bold text-lg'>Precio</span> 
             <Tabs defaultValue = 'bids' className = 'flex flex-row bg-none'>
-              <TabsList className= 'flex flex-row gap-2'>
+              <TabsList className= 'flex flex-row gap-1'>
               <TabsTrigger value = 'bids' onClick={() => setPriceType('bid')}>Venta</TabsTrigger>
               <TabsTrigger value = 'ask' onClick={() => setPriceType('ask')}>Compra</TabsTrigger>
               <TabsTrigger value = 'spread' onClick={() => setPriceType('spread')}> Spread </TabsTrigger>
@@ -54,10 +54,10 @@ export const ChartTypeSlider = () => {
       ]);
 
     return (
-        <div className = 'flex flex-row rounded-full border pl-6 pr-3 pt-2 pb-2 bg-[#D7EAD7] gap-4 items-center slider'> 
+        <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[#D7EAD7] gap-3 items-center slider'> 
             <span className = 'font-bold text-lg'>Tipo</span> 
             <Tabs defaultValue = 'bids' className = 'flex flex-row bg-none'>
-              <TabsList className= 'flex flex-row gap-2'>
+              <TabsList className= 'flex flex-row gap-1'>
               <TabsTrigger value = 'bids' onClick={() => setChartType('average')}>Promedio</TabsTrigger>
               <TabsTrigger value = 'ask' onClick={() => setChartType('broker')}>Todos</TabsTrigger>
               </TabsList>
