@@ -114,12 +114,13 @@ export const BrokerList = () => {
 
     if (chartType == 'broker') {
       return(
-          <div className = 'text-white w-[70%] flex gap-3 flex-wrap mt-4 broker-list'>
+          <div className = 'text-white w-[70%] flex gap-3 items-center justify-center flex-wrap mt-4 broker-list'>
           {Object.keys(brokersVisible).map(broker => (
-              <Toggle className = "rounded-full data-[state=on]:bg-[#0F5734]
+              <Toggle className = " flex flex-row items-center gap-2 rounded-full data-[state=on]:bg-[#0F5734]
               data-[state=on]:text-[#D7EAD7] data-[state=off]:text-[#D7EAD7] hover:bg-[#12693F]
               hover:text-black data-[state=on]:hover:outline " name = {broker} defaultPressed = {brokersVisible[broker]} key = {broker}
               onPressedChange = {handleBrokerVisibilityChange} onMouseOver = {hoverOver} onMouseOut = {hoverOut} >
+                <div className = 'w-2 h-2 rounded-full' style={{backgroundColor:`var(--${broker})`, outline: '2px solid #D7EAD7'}}></div>
                 {broker.charAt(0).toUpperCase() + broker.slice(1)}
                 </Toggle>
             ))}

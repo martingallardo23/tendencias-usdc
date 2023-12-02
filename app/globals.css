@@ -36,6 +36,16 @@
 
     --secondary-bg: 44 84% 68%;
     --secondary-fg: 151 71% 28%;
+
+    --belo :  #3c00fe;
+    --bybit :  #522298;
+    --ripio :  #7809fe;
+    --lemoncash :  #4beb55;
+    --buenbit :  #ffabea;
+    --fiwind :  #f9bd06;
+    --tiendacrypto :  #6761ab;
+    --satoshitango : #1d43fc;
+    --letsbit : #522298;
   }
  
   .dark {

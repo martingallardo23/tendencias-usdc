@@ -7,20 +7,8 @@ const axisConfig = {
     lineColor : '#EAB41F'
 };
 
-const colorPalette = {
-    belo : '#3c00fe',
-    bybit : '#522298',
-    ripio : '#7809fe',
-    lemoncash : '#4beb55',
-    buenbit : '#ffabea',
-    fiwind : '#f9bd06',
-    tiendacrypto : '#6761ab',
-    satoshitango : '#1d43fc',
-    letsbit : '#522298'
-}
-
 function getColor(broker) {
-    return colorPalette[broker] || '#000000'; 
+    return `var(--${broker})` || '#000000'; 
 }
 
 export function calculateAverageData(data, type = 'ask', timeframe = '30m') {
