@@ -20,7 +20,8 @@ export const useBrokerList = create((set) => ({
         buenbit : true,
         fiwind : true,
         tiendacrypto : true,
-        satoshitango : true
+        satoshitango : true,
+        letsbit : true,
     },
     setBrokersVisible: (brokers) => set({ brokersVisible: brokers })
 }))

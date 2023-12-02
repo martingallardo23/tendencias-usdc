@@ -7,9 +7,7 @@ const axisConfig = {
     lineColor : '#EAB41F'
 };
 
-const brokers = ['belo', 'bybit', 'ripio', 'lemoncash', 'buenbit', 'fiwind', 'tiendacrypto', 'satoshitango'];
-
-const colorPaletteAlt = {
+const colorPalette = {
     belo : '#3c00fe',
     bybit : '#522298',
     ripio : '#7809fe',
@@ -17,12 +15,14 @@ const colorPaletteAlt = {
     buenbit : '#ffabea',
     fiwind : '#f9bd06',
     tiendacrypto : '#6761ab',
-    satoshitango : '#1d43fc'
+    satoshitango : '#1d43fc',
+    letsbit : '#522298'
 }
 
 function getColor(broker) {
-    return colorPaletteAlt[broker] || '#000000'; 
+    return colorPalette[broker] || '#000000'; 
 }
+
 export function calculateAverageData(data, type = 'ask', timeframe = '30m') {
     let aggregatedData = {};
 
@@ -51,7 +51,7 @@ export function calculateAverageData(data, type = 'ask', timeframe = '30m') {
   
   export function transformDataForBrokers(rawData, valueType, timeframe = '30m') {
     let dataByBroker = {};
-    const brokers = ['belo', 'bybit', 'ripio', 'lemoncash', 'buenbit', 'fiwind', 'tiendacrypto', 'satoshitango'];
+    const brokers = ['belo', 'bybit', 'ripio', 'lemoncash', 'buenbit', 'fiwind', 'tiendacrypto', 'satoshitango', 'letsbit'];
   
     rawData.forEach(entry => {
       const roundedTime = roundTime(entry.created_at, timeframe);
