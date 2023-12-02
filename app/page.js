@@ -19,7 +19,12 @@ export default function Home() {
         .from('usdc_exchange_rates')
         .select('*');
 
+      if (error) {
+        console.error(error);
+        return;
+      } {
         setRawData(usdcExchangeRates);
+      }
     }
 
     fetchData();
