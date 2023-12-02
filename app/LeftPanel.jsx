@@ -13,7 +13,7 @@ const LeftPanel = () => {
 
         </div>
         <div className = 'text-sm text-white text-center'>
-        <span>Elaborado por Martín Gallardo a partir de <a href = 'https://usdc.ar' className = 'font-semibold text-[#D7EAD7]'>usdc.ar</a> (<a href='https://twitter.com/ferminrp' className = 'font-semibold text-[#D7EAD7]'>@ferminrp</a>). </span>
+        <span>Elaborado por Martín Gallardo a partir de <a href = 'https://usdc.ar' className = 'font-semibold text-[var(--sliders-bg)]'>usdc.ar</a> (<a href='https://twitter.com/ferminrp' className = 'font-semibold text-[var(--sliders-bg)]'>@ferminrp</a>). </span>
 
         </div>
         </div>

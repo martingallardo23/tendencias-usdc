@@ -13,7 +13,7 @@ export const TimeSlider = () => {
 
     
     return (
-        <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[#D7EAD7] gap-3 items-center slider'> 
+        <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[var(--sliders-bg)] gap-3 items-center slider'> 
             <span className = 'font-bold text-lg'>Período</span> 
             <Tabs defaultValue = '30m' className = 'flex flex-row bg-none'>
               <TabsList className= 'flex flex-row gap-1'>
@@ -34,7 +34,7 @@ export const TypeSlider = () => {
 
     
     return (
-        <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[#D7EAD7] gap-3 items-center slider'> 
+        <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[var(--sliders-bg)] gap-3 items-center slider'> 
             <span className = 'font-bold text-lg'>Precio</span> 
             <Tabs defaultValue = 'bids' className = 'flex flex-row bg-none'>
               <TabsList className= 'flex flex-row gap-1'>
@@ -54,7 +54,7 @@ export const ChartTypeSlider = () => {
       ]);
 
     return (
-        <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[#D7EAD7] gap-3 items-center slider'> 
+        <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[var(--sliders-bg)] gap-3 items-center slider'> 
             <span className = 'font-bold text-lg'>Tipo</span> 
             <Tabs defaultValue = 'bids' className = 'flex flex-row bg-none'>
               <TabsList className= 'flex flex-row gap-1'>
@@ -96,7 +96,7 @@ export const BrokerList = () => {
       if (isVisible) {
         d3.select(`#line${broker}`)
         .transition()
-        .duration(300)
+        .duration(100)
         .style('opacity', '1');
       }
     }
@@ -107,7 +107,7 @@ export const BrokerList = () => {
       if (isVisible) {
         d3.select(`#line${broker}`)
         .transition()
-        .duration(300)
+        .duration(100)
         .style('opacity', '0.2');
       }
     }
@@ -118,11 +118,11 @@ export const BrokerList = () => {
           {Object.keys(brokersVisible)
           .filter(broker => broker !== 'undefined') 
           .map(broker => (
-              <Toggle className = " flex flex-row items-center gap-2 rounded-full data-[state=on]:bg-[#0F5734]
-              data-[state=on]:text-[#D7EAD7] data-[state=off]:text-[#D7EAD7] hover:bg-[#12693F]
+              <Toggle className = " flex flex-row items-center gap-2 rounded-full data-[state=on]:bg-[var(--green-focus)]
+              data-[state=on]:text-[var(--sliders-bg)] data-[state=off]:text-[var(--sliders-bg)] hover:bg-[#12693F]
               hover:text-black data-[state=on]:hover:outline " name = {broker} defaultPressed = {brokersVisible[broker]} key = {broker}
               onPressedChange = {handleBrokerVisibilityChange} onMouseOver = {event => hoverOver(event)} onMouseOut = {event => hoverOut(event)} >
-                <div className = 'w-2 h-2 rounded-full' style={{backgroundColor:`var(--${broker})`, outline: '2px solid #D7EAD7'}}></div>
+                <div className = 'w-2 h-2 rounded-full' style={{backgroundColor:`var(--${broker})`, outline: '2px solid var(--sliders-bg)'}}></div>
                 {broker.charAt(0).toUpperCase() + broker.slice(1)}
                 </Toggle>
             ))}

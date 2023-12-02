@@ -45,7 +45,7 @@ const Chart = () => {
              {dimensions.width && dimensions.height && (
                 <svg width={dimensions.width} height={ dimensions.height} id="chart"></svg>
             )}
-            <div id="tooltip" style={{ position: 'absolute', visibility: 'hidden', backgroundColor: '#F2F8F2', padding: '10px 20px', borderRadius: '9999px', pointerEvents: 'none' , color: "black"}}></div>
+            <div id="tooltip" style={{ position: 'absolute', visibility: 'hidden', backgroundColor: 'var(--main-bg)', padding: '10px 20px', borderRadius: '9999px', pointerEvents: 'none' , color: "black"}}></div>
         </>
     );
   };

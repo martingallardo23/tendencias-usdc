@@ -2,14 +2,6 @@
 
 import * as d3 from 'd3';
 import { useBrokerList } from '@/store/zustand';
-const axisConfig = {
-    color : '#157A49',
-    lineColor : '#EAB41F'
-};
-
-function getColor(broker) {
-    return `var(--${broker})` || '#000000'; 
-}
 
 export function calculateAverageData(data, type = 'ask', timeframe = '30m') {
     let aggregatedData = {};
@@ -91,7 +83,6 @@ function roundTime(date, timeframe) {
     return date;
 }
 
-
 function setupChart() {
     const svg = d3.select('#chart');
     const margin = { top: 20, right: 20, bottom: 30, left: 50 };
@@ -127,7 +118,6 @@ function parsePrice (value, valueType) {
     } else {
         return `${Math.round(Number(value) * 10000) / 100}%`
     }
-
 }
 
 function parseDate (value, timeType) {
@@ -144,7 +134,6 @@ function parseDate (value, timeType) {
         case '24h':
             return d3.timeFormat('%d/%m/%Y')(date);
     }
-
 }
 
 export function drawLineChart(rawData, priceType, timeType) {
@@ -174,7 +163,7 @@ export function drawLineChart(rawData, priceType, timeType) {
     g.append('g')
       .call(yAxis)
       .append('text')
-      .attr('fill', axisConfig.color)
+      .attr('fill', 'var(--green-main)')
       .attr('transform', 'rotate(-90)')
       .attr('y', 6)
       .attr('dy', '0.71em')
@@ -184,7 +173,7 @@ export function drawLineChart(rawData, priceType, timeType) {
     const path = g.append('path')
         .datum(data)
         .attr('fill', 'none')
-        .attr('stroke', axisConfig.lineColor)
+        .attr('stroke', 'var(--orange-main)')
         .attr('stroke-linejoin', 'round')
         .attr('stroke-linecap', 'round')
         .attr('stroke-width', 3)
@@ -207,7 +196,7 @@ export function drawLineChart(rawData, priceType, timeType) {
             .attr('d', line)
             .style('stroke', 'transparent') 
             .style('stroke-width', 40) 
-            .on('mouseover', function(event, d) {
+            .on('mouseover', () => {
                 d3.select('#tooltip')
                     .style('visibility', 'visible')   
             })
@@ -225,7 +214,7 @@ export function drawLineChart(rawData, priceType, timeType) {
                     }
 
                     tooltip
-                        .html(`<span class="tooltip-title" style="color:${axisConfig.color}">Promedio</span>
+                        .html(`<span class="tooltip-title" style="color:var(--green-main)">Promedio</span>
                                <span class="tooltip-price">
                                ${parsePrice(nearestDataPoint.average_data, priceType)}
                                </span>
@@ -241,13 +230,13 @@ export function drawLineChart(rawData, priceType, timeType) {
                             .attr("cx", x(d3.isoParse(nearestDataPoint.created_at)))
                             .attr("cy", y(nearestDataPoint.average_data))
                             .attr("r", 8) 
-                            .style("fill", axisConfig.lineColor)
-                            .style("stroke", "#F2F8F2")
+                            .style("fill", 'var(--orange-main)')
+                            .style("stroke", "var(--main-bg)")
                             .style("stroke-width", 2)
                             .style("pointer-events", "none");
                 }
             })
-            .on('mouseout', function() {
+            .on('mouseout', () => {
                 d3.select('#tooltip').style('visibility', 'hidden');
                 g.selectAll(".hover-dot").remove(); 
             });
@@ -284,7 +273,7 @@ export function drawBrokerChart(data, priceType, timeType) {
     g.append('g')
         .call(yAxis)
         .append('text')
-        .attr('fill', axisConfig.color)
+        .attr('fill', 'var(--green-main)')
         .attr('transform', 'rotate(-90)')
         .attr('y', 6)
         .attr('dy', '0.71em')
@@ -303,7 +292,7 @@ export function drawBrokerChart(data, priceType, timeType) {
         const path = g.append('path')
             .datum(data)
             .attr('fill', 'none')
-            .attr('stroke', getColor(broker))
+            .attr('stroke', 'var(--' + broker)
             .attr('stroke-linejoin', 'round')
             .attr('stroke-linecap', 'round')
             .attr('stroke-width', 3)
@@ -332,7 +321,7 @@ export function drawBrokerChart(data, priceType, timeType) {
             .style('stroke-width', 25) 
             .on('mouseover', function(event, d) {
 
-                d3.select('#line'+broker)
+                d3.select('#line' + broker)
                     .transition()
                     .duration(200)
                     .style('opacity', 1);
@@ -355,16 +344,18 @@ export function drawBrokerChart(data, priceType, timeType) {
                         left = event.pageX - tooltipWidth - 10; 
                     }
                     tooltip
-                    .style('visibility', 'visible')
-                    .html(`<span class="tooltip-title" style="color:${getColor(broker)}">${broker.charAt(0).toUpperCase() + broker.slice(1)}</span>
-                    <span class="tooltip-price">
-                        ${parsePrice(nearestDataPoint.value, priceType)}
-                    </span>
-                    <div class="tooltip-date">
-                        ${parseDate(nearestDataPoint.created_at, timeType)}
-                    </div>`)
-                    .style('top', (event.pageY - 10) + 'px')
-                    .style('left', left + 'px');
+                        .style('visibility', 'visible')
+                        .html(`<span class="tooltip-title" style="color:var(--${broker})">
+                            ${broker.charAt(0).toUpperCase() + broker.slice(1)}
+                        </span>
+                        <span class="tooltip-price">
+                            ${parsePrice(nearestDataPoint.value, priceType)}
+                        </span>
+                        <div class="tooltip-date">
+                            ${parseDate(nearestDataPoint.created_at, timeType)}
+                        </div>`)
+                        .style('top', (event.pageY - 10) + 'px')
+                        .style('left', left + 'px');
 
                     g.selectAll(".hover-dot").remove(); 
                     g.append("circle")
@@ -372,13 +363,13 @@ export function drawBrokerChart(data, priceType, timeType) {
                     .attr("cx", x(d3.isoParse(nearestDataPoint.created_at)))
                     .attr("cy", y(nearestDataPoint.value))
                     .attr("r", 8) 
-                    .style("fill", getColor(broker) )
-                    .style("stroke", "#F2F8F2")
+                    .style("fill", 'var(--' + broker)
+                    .style("stroke", "var(--main-bg)")
                     .style("stroke-width", 2)
                     .style("pointer-events", "none");
                 }
             })
-            .on('mouseout', function() {
+            .on('mouseout', () => {
                 g.selectAll(".hover-dot").remove(); 
                 d3.select('#tooltip').style('visibility', 'hidden')
                 d3.select('#line'+broker)

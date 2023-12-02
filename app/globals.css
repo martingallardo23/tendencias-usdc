@@ -46,6 +46,12 @@
     --tiendacrypto :  #6761ab;
     --satoshitango : #1d43fc;
     --letsbit : #522298;
+
+    --main-bg: #f2f8f2;
+    --sliders-bg: #D7EAD7;
+    --green-focus: #0F5734;
+    --green-main: #157A49;
+    --orange-main: #EAB41F;
   }
  
   .dark {
@@ -89,8 +95,8 @@
 }
 
 body {
-  color: #157A49;
-  background: #F2F8F2;
+  color: var(--green-main);
+  background: var(--main-bg);
   display:flex;
   flex-direction:row;
   overflow-x:hidden;
@@ -118,10 +124,10 @@ body {
 }
 
 .title {
-  color: #F2F8F2;
+  color: var(--main-bg);
   font-size: 1.6rem;
   font-weight: 700;
-  border: 3px solid #F2F8F2;
+  border: 3px solid var(--main-bg);
   border-radius: 9999px;
   padding: 10px 20px;
   background-color: #12693F;
@@ -138,7 +144,7 @@ svg {
   border-radius:9999px;
   padding:5px 20px;
   background-color: #E4F1E4;
-  color:#157A49;
+  color:var(--green-main);
   font-size:1.1rem;
   font-weight:700;
 
