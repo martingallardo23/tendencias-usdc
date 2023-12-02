@@ -114,7 +114,7 @@ export const BrokerList = () => {
 
     if (chartType == 'broker') {
       return(
-          <div className = 'text-white w-[70%] flex gap-3 items-center justify-center flex-wrap mt-4 broker-list'>
+          <div className = 'text-white w-[80%] flex gap-3 items-center justify-center flex-wrap mt-4 broker-list'>
           {Object.keys(brokersVisible).map(broker => (
               <Toggle className = " flex flex-row items-center gap-2 rounded-full data-[state=on]:bg-[#0F5734]
               data-[state=on]:text-[#D7EAD7] data-[state=off]:text-[#D7EAD7] hover:bg-[#12693F]
