@@ -90,7 +90,7 @@ export const BrokerList = () => {
       .style('display', isVisible ? 'block' : 'none')
     }
 
-    function hoverOver() {
+    function hoverOver(event) {
       const broker = event.target.name;
       const isVisible = event.target.ariaPressed == 'true';
       if (isVisible) {
@@ -101,7 +101,7 @@ export const BrokerList = () => {
       }
     }
 
-    function hoverOut() {
+    function hoverOut(event) {
       const broker = event.target.name;
       const isVisible = event.target.ariaPressed == 'true';
       if (isVisible) {
@@ -115,11 +115,13 @@ export const BrokerList = () => {
     if (chartType == 'broker') {
       return(
           <div className = 'text-white w-[80%] flex gap-3 items-center justify-center flex-wrap mt-4 broker-list'>
-          {Object.keys(brokersVisible).map(broker => (
+          {Object.keys(brokersVisible)
+          .filter(broker => broker !== 'undefined') 
+          .map(broker => (
               <Toggle className = " flex flex-row items-center gap-2 rounded-full data-[state=on]:bg-[#0F5734]
               data-[state=on]:text-[#D7EAD7] data-[state=off]:text-[#D7EAD7] hover:bg-[#12693F]
               hover:text-black data-[state=on]:hover:outline " name = {broker} defaultPressed = {brokersVisible[broker]} key = {broker}
-              onPressedChange = {handleBrokerVisibilityChange} onMouseOver = {hoverOver} onMouseOut = {hoverOut} >
+              onPressedChange = {handleBrokerVisibilityChange} onMouseOver = {event => hoverOver(event)} onMouseOut = {event => hoverOut(event)} >
                 <div className = 'w-2 h-2 rounded-full' style={{backgroundColor:`var(--${broker})`, outline: '2px solid #D7EAD7'}}></div>
                 {broker.charAt(0).toUpperCase() + broker.slice(1)}
                 </Toggle>
