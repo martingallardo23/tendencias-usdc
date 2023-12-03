@@ -5,7 +5,7 @@ import { Tabs,TabsList,TabsTrigger } from "./ui/tabs"
 import { Toggle } from "@/components/ui/toggle";
 import * as d3 from "d3";
 
-export const TimeSlider = () => {
+export const FrequencySlider = () => {
 
     const [seTimeType] = useStore((state) => [
         state.setTimeType

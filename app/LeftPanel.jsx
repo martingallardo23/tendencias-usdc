@@ -1,4 +1,4 @@
-import { TimeSlider, ChartTypeSlider, TypeSlider, BrokerList } from "@/components/Sliders";
+import { FrequencySlider, ChartTypeSlider, TypeSlider, BrokerList } from "@/components/Sliders";
 
 const LeftPanel = () => {
 
@@ -7,7 +7,7 @@ const LeftPanel = () => {
         <div className = 'title'>Tendencias USDC</div>
         <div className = 'w-auto flex flex-col justify-between items-center gap-4'>
         <TypeSlider/>
-        <TimeSlider/>
+        <FrequencySlider/>
         <ChartTypeSlider/>    
         <BrokerList/>
 
