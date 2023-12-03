@@ -179,21 +179,22 @@ button, a, input, textarea, [role="button"] {
   }
 
   #tooltip {
-    position:static;
+    position:absolute !important;
+    padding: 5px 15px !important;
   }
 
   .tooltip-title {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
   }
 
   .tooltip-price {
-    font-size: 0.85rem;
-    font-weight: 600;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
   }
   .tooltip-date {
-    font-size: 0.75rem;
-    font-weight: 400;
+    font-size: 0.75rem !important;
+    font-weight: 400 !important;
   }
   .title {
     display:none;
@@ -203,8 +204,5 @@ button, a, input, textarea, [role="button"] {
   }
   .broker-list {
     width:85%;
-  }
-  #tooltip {
-    padding: 5px 10px;
   }
 }
