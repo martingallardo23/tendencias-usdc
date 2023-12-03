@@ -14,7 +14,7 @@ export const TimeSlider = () => {
     
     return (
         <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[var(--sliders-bg)] gap-3 items-center slider'> 
-            <span className = 'font-bold text-lg'>Período</span> 
+            <span className = 'font-bold text-lg'>Frecuencia</span> 
             <Tabs defaultValue = '30m' className = 'flex flex-row bg-none'>
               <TabsList className= 'flex flex-row gap-1'>
               <TabsTrigger value = '30m' onClick={() => seTimeType('30m')}>30m</TabsTrigger>
