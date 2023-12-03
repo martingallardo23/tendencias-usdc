@@ -178,6 +178,10 @@ button, a, input, textarea, [role="button"] {
     position:static;
   }
 
+  #tooltip {
+    position:static;
+  }
+
   .tooltip-title {
     font-size: 1.1rem;
     font-weight: 600;
