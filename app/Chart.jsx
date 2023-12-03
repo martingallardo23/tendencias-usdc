@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useStore } from "@/store/zustand";
 
 const Chart = () => {
-    const [rawData, priceType, chartType, timeType] = useStore((state) => [state.rawData, state.priceType, state.chartType, state.timeType]);
+    const [rawData, priceType, chartType, timeType, timeFrame] = useStore((state) => [state.rawData, state.priceType, state.chartType, state.timeType, state.timeFrame]);
 
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     
@@ -32,20 +32,20 @@ const Chart = () => {
     useEffect(() => {
         if (dimensions.width && dimensions.height) {
             if (chartType === 'broker') {
-                drawBrokerChart(rawData, priceType, timeType);
+                drawBrokerChart(rawData, priceType, timeType, timeFrame);
             } else if (chartType === 'average') {
-                drawLineChart(rawData, priceType, timeType);
+                drawLineChart(rawData, priceType, timeType, timeFrame);
             }
         }
 
-    }, [dimensions, rawData, priceType, chartType, timeType]);
+    }, [dimensions, rawData, priceType, chartType, timeType, timeFrame]);
 
     return (
         <>  
              {dimensions.width && dimensions.height && (
                 <svg width={dimensions.width} height={ dimensions.height} id="chart"></svg>
             )}
-            <div id="tooltip" style={{ position: 'absolute', visibility: 'hidden', backgroundColor: 'var(--main-bg)', padding: '10px 20px', borderRadius: '9999px', pointerEvents: 'none' , color: "black"}}></div>
+            <div id="tooltip" style={{ position: 'fixed', visibility: 'hidden', backgroundColor: 'var(--main-bg)', padding: '10px 20px', borderRadius: '9999px', pointerEvents: 'none' , color: "black"}}></div>
         </>
     );
   };

@@ -138,6 +138,10 @@ svg {
   height:auto
 }
 
+#leftPanel {
+  min-height:100vh;
+}
+
 .title-secondary {
   display: none;
   margin-top:20px;
@@ -165,10 +169,13 @@ button, a, input, textarea, [role="button"] {
     width:100%;
     height:auto;
     gap:30px;
+    min-height:0;
   }
   #chartContainer {
     height:40vh;
+    min-height: 250px;
     width:100%;
+    position:static;
   }
 
   .tooltip-title {

@@ -7,32 +7,52 @@ import * as d3 from "d3";
 
 export const FrequencySlider = () => {
 
-    const [seTimeType] = useStore((state) => [
+    const [setTimeType] = useStore((state) => [
         state.setTimeType
       ]);
 
-    
     return (
         <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[var(--sliders-bg)] gap-3 items-center slider'> 
             <span className = 'font-bold text-lg'>Frecuencia</span> 
             <Tabs defaultValue = '30m' className = 'flex flex-row bg-none'>
               <TabsList className= 'flex flex-row gap-1'>
-              <TabsTrigger value = '30m' onClick={() => seTimeType('30m')}>30m</TabsTrigger>
-              <TabsTrigger value = '1h' onClick={() => seTimeType('1h')}>1h</TabsTrigger>
-              <TabsTrigger value = '12h' onClick={() => seTimeType('12h')}> 12h </TabsTrigger>
-              <TabsTrigger value = '24h' onClick={() => seTimeType('24h')}> 24h </TabsTrigger>
+              <TabsTrigger value = '30m' onClick={() => setTimeType('30m')}>30m</TabsTrigger>
+              <TabsTrigger value = '1h' onClick={() => setTimeType('1h')}>1h</TabsTrigger>
+              <TabsTrigger value = '12h' onClick={() => setTimeType('12h')}> 12h </TabsTrigger>
+              <TabsTrigger value = '24h' onClick={() => setTimeType('24h')}> 24h </TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
     )
 }
+
+export const TimeFrameSlider = () => {
+
+    const [setTimeFrame] = useStore((state) => [
+        state.setTimeFrame
+      ]);
+
+    return (
+        <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[var(--sliders-bg)] gap-3 items-center slider'> 
+            <span className = 'font-bold text-lg'>Período</span> 
+            <Tabs defaultValue = '7d' className = 'flex flex-row bg-none'>
+              <TabsList className= 'flex flex-row gap-1'>
+              <TabsTrigger value = '7d' onClick={() => setTimeFrame('7d')}>7d</TabsTrigger>
+              <TabsTrigger value = '14d' onClick={() => setTimeFrame('14d')}>14d</TabsTrigger>
+              <TabsTrigger value = '30d' onClick={() => setTimeFrame('30d')}> 30d </TabsTrigger>
+              <TabsTrigger value = 'all' onClick={() => setTimeFrame('all')}> Max. </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+    )
+}
+
 export const TypeSlider = () => {
 
     const [setPriceType] = useStore((state) => [
         state.setPriceType
       ]);
 
-    
     return (
         <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[var(--sliders-bg)] gap-3 items-center slider'> 
             <span className = 'font-bold text-lg'>Precio</span> 

@@ -5,10 +5,12 @@ export const useStore = create((set) => ({
     priceType: 'bid',
     chartType: 'average',
     timeType: '30m',
+    timeFrame: '7d',
     setRawData: (data) => set({ rawData: data }),
     setPriceType: (type) => set({ priceType: type }),
     setChartType: (type) => set({ chartType: type }),
-    setTimeType: (type) => set({ timeType: type })
+    setTimeType: (type) => set({ timeType: type }),
+    setTimeFrame: (type) => set({ timeFrame: type }),
 }))
 
 export const useBrokerList = create((set) => ({

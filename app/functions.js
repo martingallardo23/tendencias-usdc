@@ -3,11 +3,33 @@
 import * as d3 from 'd3';
 import { useBrokerList } from '@/store/zustand';
 
-export function calculateAverageData(data, type = 'ask', timeframe = '30m') {
+function isWithinTimeframe(date, timeframe) {
+    const currentDate = new Date();
+    let timeframeDate;
+
+    switch (timeframe) {
+        case '7d':
+            timeframeDate = new Date(currentDate.setDate(currentDate.getDate() - 7));
+            break;
+        case '14d':
+            timeframeDate = new Date(currentDate.setDate(currentDate.getDate() - 14));
+            break;
+        case '30d':
+            timeframeDate = new Date(currentDate.setDate(currentDate.getDate() - 30));
+            break;
+        case 'all':
+        default:
+            return true;
+    }
+    
+    return new Date(date) >= timeframeDate;
+}
+
+export function calculateAverageData(data, priceType = 'ask', frequency = '30m', timeframe = '7d') {
     let aggregatedData = {};
 
-    data.forEach(record => {
-        const roundedTime = roundTime(record.created_at, timeframe);
+    data.filter(record => isWithinTimeframe(record.created_at, timeframe)).forEach(record => {
+        const roundedTime = roundTime(record.created_at, frequency);
         const key = roundedTime.toISOString();
 
         if (!aggregatedData[key]) {
@@ -15,7 +37,7 @@ export function calculateAverageData(data, type = 'ask', timeframe = '30m') {
         }
 
         const singleValues = Object.keys(record)
-        .filter(key => key.endsWith(type === 'ask' || type === 'bid' ? `_total${type}` : `_spread_percentage`))
+        .filter(key => key.endsWith(priceType === 'ask' || priceType === 'bid' ? `_total${priceType}` : `_spread_percentage`))
         .map(key => record[key]);
 
         const averageData = singleValues.reduce((sum, value) => sum + value, 0) / singleValues.length;
@@ -29,12 +51,14 @@ export function calculateAverageData(data, type = 'ask', timeframe = '30m') {
     }));
 }
   
-  export function transformDataForBrokers(rawData, valueType, timeframe = '30m') {
+  export function transformDataForBrokers(rawData, priceType = 'ask', frequency = '30m', timeframe = '7d') {
     let dataByBroker = {};
     const brokers = ['belo', 'bybit', 'ripio', 'lemoncash', 'buenbit', 'fiwind', 'tiendacrypto', 'satoshitango', 'letsbit'];
   
-    rawData.forEach(entry => {
-      const roundedTime = roundTime(entry.created_at, timeframe);
+    rawData
+    .filter(entry => isWithinTimeframe(entry.created_at, timeframe))
+    .forEach(entry => {
+      const roundedTime = roundTime(entry.created_at, frequency);
       const key = roundedTime.toISOString();
   
       brokers.forEach(broker => {
@@ -45,7 +69,7 @@ export function calculateAverageData(data, type = 'ask', timeframe = '30m') {
           dataByBroker[broker][key] = { sum: 0, count: 0 };
         }
   
-        const value = entry[valueType === 'bid' || valueType === 'ask' ? `${broker}_total${valueType}` : `${broker}_spread_percentage`];
+        const value = entry[priceType === 'bid' || priceType === 'ask' ? `${broker}_total${priceType}` : `${broker}_spread_percentage`];
         dataByBroker[broker][key].sum += value;
         dataByBroker[broker][key].count++;
       });
@@ -62,10 +86,10 @@ export function calculateAverageData(data, type = 'ask', timeframe = '30m') {
   }
   
 
-function roundTime(date, timeframe) {
+function roundTime(date, frequency) {
     date = new Date(date);
 
-    switch (timeframe) {
+    switch (frequency) {
         case '30m':
             const minutes = date.getMinutes();
             date.setMinutes(minutes < 30 ? 0 : 30, 0, 0);
@@ -136,10 +160,10 @@ function parseDate (value, timeType) {
     }
 }
 
-export function drawLineChart(rawData, priceType, timeType) {
+export function drawLineChart(rawData, priceType, timeType, timeframe) {
 
     d3.select('#chart').selectAll('*').remove();
-    const data = calculateAverageData(rawData, priceType, timeType);
+    const data = calculateAverageData(rawData, priceType, timeType, timeframe);
     const { svg, g, x, y, width, height } = setupChart();
   
     const line = d3.line()
@@ -205,6 +229,7 @@ export function drawLineChart(rawData, priceType, timeType) {
                 const nearestDataPoint = findNearestDataPoint(mouseX, data, x);
 
                 if (nearestDataPoint) {
+
                     const tooltip = d3.select('#tooltip');
                     const tooltipWidth = tooltip.node().getBoundingClientRect().width;
                     const pageWidth = document.body.clientWidth;
@@ -243,10 +268,10 @@ export function drawLineChart(rawData, priceType, timeType) {
 }
 
 
-export function drawBrokerChart(data, priceType, timeType) {
+export function drawBrokerChart(data, priceType, timeType, timeframe) {
     d3.select('#chart').selectAll('*').remove();
 
-    const dataByBroker = transformDataForBrokers(data, priceType, timeType);
+    const dataByBroker = transformDataForBrokers(data, priceType, timeType, timeframe);
 
     const {brokersVisible} = useBrokerList.getState();
 
