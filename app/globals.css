@@ -173,7 +173,7 @@ button, a, input, textarea, [role="button"] {
   }
   #chartContainer {
     height:40vh;
-    min-height: 250px;
+    min-height: 200px;
     width:100%;
     position:static;
   }
