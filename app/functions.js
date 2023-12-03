@@ -358,15 +358,16 @@ export function drawBrokerChart(data, priceType, timeType, timeframe) {
                     
                 })
             .on('mousemove', function(event, d) {
-                const mouseX = d3.pointer(event)[0];
+                const mouseX = d3.pointer(event, this)[0]; 
                 const nearestDataPoint = findNearestDataPoint(mouseX, data, x);
                 if (nearestDataPoint) {
                     const tooltip = d3.select('#tooltip');
                     const tooltipWidth = tooltip.node().getBoundingClientRect().width;
-                    const pageWidth = document.body.clientWidth;
-                    let left = event.pageX + 10; 
-                    if (left + tooltipWidth > pageWidth) {
-                        left = event.pageX - tooltipWidth - 10; 
+                    const viewportWidth = window.innerWidth;
+
+                    let left = event.clientX + 10;
+                    if (left + tooltipWidth > viewportWidth) {
+                        left = event.clientX - tooltipWidth - 10;
                     }
                     tooltip
                         .style('visibility', 'visible')
@@ -379,7 +380,7 @@ export function drawBrokerChart(data, priceType, timeType, timeframe) {
                         <div class="tooltip-date">
                             ${parseDate(nearestDataPoint.created_at, timeType)}
                         </div>`)
-                        .style('top', (event.pageY - 10) + 'px')
+                        .style('top', (event.clientY - 10) + 'px')
                         .style('left', left + 'px');
 
                     g.selectAll(".hover-dot").remove(); 
