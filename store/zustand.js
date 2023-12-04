@@ -4,7 +4,7 @@ export const useStore = create((set) => ({
     rawData: [],
     priceType: 'bid',
     chartType: 'average',
-    timeType: '30m',
+    timeType: '1h',
     timeFrame: '7d',
     setRawData: (data) => set({ rawData: data }),
     setPriceType: (type) => set({ priceType: type }),

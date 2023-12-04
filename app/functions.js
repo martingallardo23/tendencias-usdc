@@ -25,7 +25,7 @@ function isWithinTimeframe(date, timeframe) {
     return new Date(date) >= timeframeDate;
 }
 
-export function calculateAverageData(data, priceType = 'ask', frequency = '30m', timeframe = '7d') {
+export function calculateAverageData(data, priceType = 'ask', frequency = '1h', timeframe = '7d') {
     let aggregatedData = {};
 
     data.filter(record => isWithinTimeframe(record.created_at, timeframe)).forEach(record => {
@@ -51,7 +51,7 @@ export function calculateAverageData(data, priceType = 'ask', frequency = '30m',
     }));
 }
   
-  export function transformDataForBrokers(rawData, priceType = 'ask', frequency = '30m', timeframe = '7d') {
+  export function transformDataForBrokers(rawData, priceType = 'ask', frequency = '1h', timeframe = '7d') {
     let dataByBroker = {};
     const brokers = ['belo', 'bybit', 'ripio', 'lemoncash', 'buenbit', 'fiwind', 'tiendacrypto', 'satoshitango', 'letsbit'];
   

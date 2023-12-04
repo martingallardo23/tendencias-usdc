@@ -12,11 +12,11 @@ export const FrequencySlider = () => {
       ]);
 
     return (
-        <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[var(--sliders-bg)] gap-3 items-center slider'> 
-            <span className = 'font-bold text-lg'>Frecuencia</span> 
-            <Tabs defaultValue = '30m' className = 'flex flex-row bg-none'>
+        <div className = 'flex flex-row rounded-full border pl-4 md:pl-5 pr-1 md:pr-2 py-0.5 md:py-1 bg-[var(--sliders-bg)] gap-3 items-center slider'> 
+            <span className = 'font-bold text-base md:text-lg'>Frecuencia</span> 
+            <Tabs defaultValue = '1h' className = 'flex flex-row bg-none'>
               <TabsList className= 'flex flex-row gap-1'>
-              <TabsTrigger value = '30m' onClick={() => setTimeType('30m')}>30m</TabsTrigger>
+              {/*<TabsTrigger value = '30m' onClick={() => setTimeType('30m')}>30m</TabsTrigger>*/}
               <TabsTrigger value = '1h' onClick={() => setTimeType('1h')}>1h</TabsTrigger>
               <TabsTrigger value = '12h' onClick={() => setTimeType('12h')}> 12h </TabsTrigger>
               <TabsTrigger value = '24h' onClick={() => setTimeType('24h')}> 24h </TabsTrigger>
@@ -33,8 +33,8 @@ export const TimeFrameSlider = () => {
       ]);
 
     return (
-        <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[var(--sliders-bg)] gap-3 items-center slider'> 
-            <span className = 'font-bold text-lg'>Período</span> 
+        <div className = 'flex flex-row rounded-full border pl-4 md:pl-5 pr-1 md:pr-2 py-0.5 md:py-1 bg-[var(--sliders-bg)] gap-3 items-center slider'> 
+            <span className = 'font-bold text-base md:text-lg'>Período</span> 
             <Tabs defaultValue = '7d' className = 'flex flex-row bg-none'>
               <TabsList className= 'flex flex-row gap-1'>
               <TabsTrigger value = '7d' onClick={() => setTimeFrame('7d')}>7d</TabsTrigger>
@@ -54,8 +54,8 @@ export const TypeSlider = () => {
       ]);
 
     return (
-        <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[var(--sliders-bg)] gap-3 items-center slider'> 
-            <span className = 'font-bold text-lg'>Precio</span> 
+        <div className = 'flex flex-row rounded-full border pl-4 md:pl-5 pr-1 md:pr-2 py-0.5 md:py-1  bg-[var(--sliders-bg)] gap-3 items-center slider'> 
+            <span className = 'font-bold text-base md:text-lg'>Precio</span> 
             <Tabs defaultValue = 'bids' className = 'flex flex-row bg-none'>
               <TabsList className= 'flex flex-row gap-1'>
               <TabsTrigger value = 'bids' onClick={() => setPriceType('bid')}>Venta</TabsTrigger>
@@ -74,8 +74,8 @@ export const ChartTypeSlider = () => {
       ]);
 
     return (
-        <div className = 'flex flex-row rounded-full border pl-5 pr-2 pt-1 pb-1 bg-[var(--sliders-bg)] gap-3 items-center slider'> 
-            <span className = 'font-bold text-lg'>Tipo</span> 
+        <div className = 'flex flex-row rounded-full border pl-4 md:pl-5 pr-1 md:pr-2 py-0.5 md:py-1  bg-[var(--sliders-bg)] gap-3 items-center slider'> 
+            <span className = 'font-bold text-base md:text-lg'>Tipo</span> 
             <Tabs defaultValue = 'bids' className = 'flex flex-row bg-none'>
               <TabsList className= 'flex flex-row gap-1'>
               <TabsTrigger value = 'bids' onClick={() => setChartType('average')}>Promedio</TabsTrigger>
