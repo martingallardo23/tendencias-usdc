@@ -25,6 +25,19 @@ function isWithinTimeframe(date, timeframe) {
     return new Date(date) >= timeframeDate;
 }
 
+export function calculateDaysSinceFirstDataPoint(rawData) {
+    const dates = rawData.map(record => new Date(record.created_at));
+
+    const earliestDate = new Date(Math.min(...dates));
+
+    const today = new Date();
+    const diffInTime = today.getTime() - earliestDate.getTime();
+
+    const diffInDays = Math.ceil(diffInTime / (1000 * 3600 * 24));
+
+    return diffInDays;
+}
+
 export function calculateAverageData(data, priceType = 'ask', frequency = '1h', timeframe = '7d') {
     let aggregatedData = {};
 

@@ -8,7 +8,7 @@ const LeftPanel = () => {
         <div className = 'w-auto flex flex-col justify-between items-center gap-4'>
         <TypeSlider/>
         <FrequencySlider/>
-        {/* <TimeFrameSlider/> */}
+        <TimeFrameSlider/>
         <ChartTypeSlider/>    
         <BrokerList/>
 

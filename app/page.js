@@ -4,6 +4,7 @@ import {  useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import Chart from '../app/Chart.jsx';
 import { useStore } from '@/store/zustand.js';
+import { calculateDaysSinceFirstDataPoint } from './functions.js';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -11,7 +12,7 @@ const supabase = createClient(
 );
 
 export default function Home() {
-  const [setRawData] = useStore(state => [state.setRawData]);
+  const [setRawData, setDaysSinceFirst] = useStore(state => [state.setRawData, state.setDaysSinceFirst]);
 
   useEffect(() => {
     async function fetchData() {
@@ -24,6 +25,7 @@ export default function Home() {
         return;
       } {
         setRawData(usdcExchangeRates);
+        setDaysSinceFirst(calculateDaysSinceFirstDataPoint(usdcExchangeRates));
       }
     }
 
