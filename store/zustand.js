@@ -15,8 +15,8 @@ export const useStore = create((set) => ({
     setDaysSinceFirst: (days) => set({ daysSinceFirst: days }),
 }))
 
-export const useBrokerList = create((set) => ({
-    brokersVisible: {
+export const useExchangeList = create((set) => ({
+    exchangesVisible: {
         belo : true,
         bybit : true,
         ripio : true,
@@ -27,6 +27,6 @@ export const useBrokerList = create((set) => ({
         satoshitango : true,
         letsbit : true,
     },
-    setBrokersVisible: (brokers) => set({ brokersVisible: brokers })
+    setExchangesVisible: (exchanges) => set({ exchangesVisible: exchanges })
 }))
 

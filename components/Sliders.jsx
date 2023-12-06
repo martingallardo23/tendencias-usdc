@@ -1,6 +1,6 @@
 'use client'; 
 
-import { useStore, useBrokerList } from "@/store/zustand";
+import { useStore, useExchangeList } from "@/store/zustand";
 import { Tabs,TabsList,TabsTrigger } from "./ui/tabs"
 import { Toggle } from "@/components/ui/toggle";
 import * as d3 from "d3";
@@ -83,7 +83,7 @@ export const ChartTypeSlider = () => {
             <Tabs defaultValue = 'bids' className = 'flex flex-row bg-none'>
               <TabsList className= 'flex flex-row gap-1'>
               <TabsTrigger value = 'bids' onClick={() => setChartType('average')}>Promedio</TabsTrigger>
-              <TabsTrigger value = 'ask' onClick={() => setChartType('broker')}>Todos</TabsTrigger>
+              <TabsTrigger value = 'ask' onClick={() => setChartType('exchange')}>Todos</TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
@@ -91,34 +91,34 @@ export const ChartTypeSlider = () => {
 
 }
 
-export const BrokerList = () => {
+export const ExchangeList = () => {
 
     const [chartType] = useStore((state) => [
         state.chartType
       ]);
-    const [brokersVisible, setBrokersVisible] = useBrokerList((state) => [
-        state.brokersVisible,
-        state.setBrokersVisible
+    const [exchangesVisible, setExchangesVisible] = useExchangeList((state) => [
+        state.exchangesVisible,
+        state.setExchangesVisible
       ]);
 
 
-    function handleBrokerVisibilityChange() {
-      const broker = event.target.name;
+    function handleExchangeVisibilityChange() {
+      const exchange = event.target.name;
       const isVisible = event.target.ariaPressed == 'true';    
-      setBrokersVisible({ ...brokersVisible, [broker]: isVisible})
-      d3.select(`#line${broker}`)
+      setExchangesVisible({ ...exchangesVisible, [exchange]: isVisible})
+      d3.select(`#line${exchange}`)
       .transition()
       .duration(300)
       .style('visibility', isVisible ? 'visible' : 'hidden');
-      d3.select(`#lineOverlay${broker}`)
+      d3.select(`#lineOverlay${exchange}`)
       .style('display', isVisible ? 'block' : 'none')
     }
 
     function hoverOver(event) {
-      const broker = event.target.name;
+      const exchange = event.target.name;
       const isVisible = event.target.ariaPressed == 'true';
       if (isVisible) {
-        d3.select(`#line${broker}`)
+        d3.select(`#line${exchange}`)
         .transition()
         .duration(100)
         .style('opacity', '1');
@@ -126,28 +126,28 @@ export const BrokerList = () => {
     }
 
     function hoverOut(event) {
-      const broker = event.target.name;
+      const exchange = event.target.name;
       const isVisible = event.target.ariaPressed == 'true';
       if (isVisible) {
-        d3.select(`#line${broker}`)
+        d3.select(`#line${exchange}`)
         .transition()
         .duration(100)
         .style('opacity', '0.2');
       }
     }
 
-    if (chartType == 'broker') {
+    if (chartType == 'exchange') {
       return(
-          <div className = 'text-white w-[80%] flex gap-3 items-center justify-center flex-wrap mt-4 broker-list'>
-          {Object.keys(brokersVisible)
-          .filter(broker => broker !== 'undefined') 
-          .map(broker => (
+          <div className = 'text-white w-[80%] flex gap-3 items-center justify-center flex-wrap mt-4 exchange-list'>
+          {Object.keys(exchangesVisible)
+          .filter(exchange => exchange !== 'undefined') 
+          .map(exchange => (
               <Toggle className = " flex flex-row items-center gap-2 rounded-full data-[state=on]:bg-[var(--green-focus)]
               data-[state=on]:text-[var(--sliders-bg)] data-[state=off]:text-[var(--sliders-bg)] hover:bg-[#12693F]
-              hover:text-black data-[state=on]:hover:outline " name = {broker} defaultPressed = {brokersVisible[broker]} key = {broker}
-              onPressedChange = {handleBrokerVisibilityChange} onMouseOver = {event => hoverOver(event)} onMouseOut = {event => hoverOut(event)} >
-                <div className = 'w-2 h-2 rounded-full' style={{backgroundColor:`var(--${broker})`, outline: '2px solid var(--sliders-bg)'}}></div>
-                {broker.charAt(0).toUpperCase() + broker.slice(1)}
+              hover:text-black data-[state=on]:hover:outline " name = {exchange} defaultPressed = {exchangesVisible[exchange]} key = {exchange}
+              onPressedChange = {handleExchangeVisibilityChange} onMouseOver = {event => hoverOver(event)} onMouseOut = {event => hoverOut(event)} >
+                <div className = 'w-2 h-2 rounded-full' style={{backgroundColor:`var(--${exchange})`, outline: '2px solid var(--sliders-bg)'}}></div>
+                {exchange.charAt(0).toUpperCase() + exchange.slice(1)}
                 </Toggle>
             ))}
           </div>)

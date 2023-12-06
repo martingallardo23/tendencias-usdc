@@ -1,29 +1,8 @@
 "use client";
 
 import * as d3 from 'd3';
-import { useBrokerList } from '@/store/zustand';
-
-function isWithinTimeframe(date, timeframe) {
-    if (timeframe === 'all') return true;
-
-    const daysBack = parseInt(timeframe, 10);
-    const timeframeDate = new Date();
-    timeframeDate.setDate(timeframeDate.getDate() - daysBack);
-
-    return new Date(date) >= timeframeDate;
-}
-
-export function calculateDaysSinceFirstDataPoint(rawData) {
-    const earliestDate = rawData.reduce((minDate, record) => {
-        const recordDate = new Date(record.created_at);
-        return recordDate < minDate ? recordDate : minDate;
-    }, new Date());
-
-    const today = new Date();
-    const diffInTime = today - earliestDate;
-
-    return Math.ceil(diffInTime / (1000 * 3600 * 24));
-}
+import { useExchangeList } from '@/store/zustand';
+import { parsePrice, parseDate, findNearestDataPoint, roundTime, isWithinTimeframe } from '@/lib/aux-functions';
 
 function getAverageData(data, priceType = 'ask', frequency = '1h', timeframe = '7d') {
     let aggregatedData = {};
@@ -54,8 +33,8 @@ function getAverageData(data, priceType = 'ask', frequency = '1h', timeframe = '
 }
   
  function getExchangeData(data, priceType = 'ask', frequency = '1h', timeframe = '7d') {
-    let dataByBroker = {};
-    const brokers = ['belo', 'bybit', 'ripio', 'lemoncash', 'buenbit', 'fiwind', 'tiendacrypto', 'satoshitango', 'letsbit'];
+    let dataByExchange = {};
+    const exchanges = ['belo', 'bybit', 'ripio', 'lemoncash', 'buenbit', 'fiwind', 'tiendacrypto', 'satoshitango', 'letsbit'];
   
     data
     .filter(record => isWithinTimeframe(record.created_at, timeframe))
@@ -63,45 +42,29 @@ function getAverageData(data, priceType = 'ask', frequency = '1h', timeframe = '
       const roundedTime = roundTime(record.created_at, frequency);
       const key = roundedTime.toISOString();
   
-      brokers.forEach(broker => {
-        if (!dataByBroker[broker]) {
-          dataByBroker[broker] = {};
+      exchanges.forEach(exchange => {
+        if (!dataByExchange[exchange]) {
+          dataByExchange[exchange] = {};
         }
-        if (!dataByBroker[broker][key]) {
-          dataByBroker[broker][key] = { sum: 0, count: 0 };
+        if (!dataByExchange[exchange][key]) {
+          dataByExchange[exchange][key] = { sum: 0, count: 0 };
         }
   
-        const value = record[priceType === 'bid' || priceType === 'ask' ? `${broker}_total${priceType}` : `${broker}_spread_percentage`];
-        dataByBroker[broker][key].sum += value;
-        dataByBroker[broker][key].count++;
+        const value = record[priceType === 'bid' || priceType === 'ask' ? `${exchange}_total${priceType}` : `${exchange}_spread_percentage`];
+        dataByExchange[exchange][key].sum += value;
+        dataByExchange[exchange][key].count++;
       });
     });
   
-    Object.keys(dataByBroker).forEach(broker => {
-      dataByBroker[broker] = Object.keys(dataByBroker[broker]).map(key => ({
+    Object.keys(dataByExchange).forEach(exchange => {
+      dataByExchange[exchange] = Object.keys(dataByExchange[exchange]).map(key => ({
         created_at: key,
-        value: dataByBroker[broker][key].sum / dataByBroker[broker][key].count
+        value: dataByExchange[exchange][key].sum / dataByExchange[exchange][key].count
       }));
     });
   
-    return dataByBroker;
+    return dataByExchange;
   }
-  
-  function roundTime(date, frequency) {
-    const rounders = {
-        '30m': (d) => {
-            const minutes = d.getMinutes();
-            d.setMinutes(minutes < 30 ? 0 : 30, 0, 0);
-        },
-        '1h': (d) => d.setMinutes(0, 0, 0),
-        '12h': (d) => d.setHours(d.getHours() < 12 ? 0 : 12, 0, 0, 0),
-        '24h': (d) => d.setHours(0, 0, 0, 0)
-    };
-
-    date = new Date(date);
-    rounders[frequency]?.(date);
-    return date;
-}
 
 function setupChart() {
     const svg = d3.select('#chart');
@@ -114,25 +77,6 @@ function setupChart() {
     const y = d3.scaleLinear().rangeRound([height, 0]);
 
     return { svg, g, x, y, width, height };
-}
-
-function findNearestDataPoint(mouseX, data, xScale) {
-    return data.reduce((nearest, d) => {
-        const dataX = xScale(d3.isoParse(d.created_at));
-        const distance = Math.abs(mouseX - dataX);
-        return (distance < nearest.distance) ? { distance, point: d } : nearest;
-    }, { distance: Infinity, point: null }).point;
-}
-
-function parsePrice (value, valueType) {
-    const number = Math.round(Number(value) * 100) / 100;
-    return valueType === 'ask' || valueType === 'bid' ? `$${number}` : `${number * 100}%`;
-}
-
-function parseDate (value, timeType) {
-    const date = d3.isoParse(value);
-    const format = timeType === '24h' ? '%d/%m/%Y' : '%d/%m/%Y %H:%M';
-    return d3.timeFormat(format)(date);
 }
 
 export function drawLineChart(rawData, priceType, timeType, timeframe) {
@@ -241,13 +185,12 @@ export function drawLineChart(rawData, priceType, timeType, timeframe) {
             });
 }
 
-
-export function drawBrokerChart(data, priceType, timeType, timeframe) {
+export function drawExchangeChart(data, priceType, timeType, timeframe) {
     d3.select('#chart').selectAll('*').remove();
 
-    const dataByBroker = getExchangeData(data, priceType, timeType, timeframe);
+    const dataByExchange = getExchangeData(data, priceType, timeType, timeframe);
 
-    const {brokersVisible} = useBrokerList.getState();
+    const {exchangesVisible} = useExchangeList.getState();
 
     const { svg, g, x, y, width, height } = setupChart();
 
@@ -257,10 +200,10 @@ export function drawBrokerChart(data, priceType, timeType, timeframe) {
         return priceType === 'spread' ? `${(d * 100).toFixed(2)}` : `$${d}`;
     });
 
-    const xMin = d3.min(Object.values(dataByBroker), brokerData => d3.min(brokerData, d => new Date(d.created_at)));
-    const xMax = d3.max(Object.values(dataByBroker), brokerData => d3.max(brokerData, d => new Date(d.created_at)));    
-    const yMin = d3.min(Object.values(dataByBroker), brokerData => d3.min(brokerData, d => d.value));
-    const yMax = d3.max(Object.values(dataByBroker), brokerData => d3.max(brokerData, d => d.value));
+    const xMin = d3.min(Object.values(dataByExchange), data => d3.min(data, d => new Date(d.created_at)));
+    const xMax = d3.max(Object.values(dataByExchange), data => d3.max(data, d => new Date(d.created_at)));    
+    const yMin = d3.min(Object.values(dataByExchange), data => d3.min(data, d => d.value));
+    const yMax = d3.max(Object.values(dataByExchange), data => d3.max(data, d => d.value));
 
     x.domain([xMin, xMax]);
     y.domain([yMin, yMax]);
@@ -284,27 +227,27 @@ export function drawBrokerChart(data, priceType, timeType, timeframe) {
         .x(d => x( new Date(d.created_at)))
         .y(d => y(d.value));
 
-    Object.keys(dataByBroker).forEach(broker => {
+    Object.keys(dataByExchange).forEach(exchange => {
 
-        const data = dataByBroker[broker];
+        const data = dataByExchange[exchange];
 
         const path = g.append('path')
             .datum(data)
             .attr('fill', 'none')
-            .attr('stroke', 'var(--' + broker)
+            .attr('stroke', 'var(--' + exchange)
             .attr('stroke-linejoin', 'round')
             .attr('stroke-linecap', 'round')
             .attr('stroke-width', 3)
             .attr('d', line)
-            .style('visibility', brokersVisible[broker] ? 'visible' : 'hidden')
+            .style('visibility', exchangesVisible[exchange] ? 'visible' : 'hidden')
             .style('opacity', 0.2)
-            .attr('id', 'line'+broker);
+            .attr('id', 'line'+exchange);
 
         const totalLength = path.node().getTotalLength();
 
         path.attr('stroke-dasharray', totalLength + " " + totalLength)
             .attr('stroke-dashoffset', totalLength)
-            .transition('transition'+broker)
+            .transition('transition'+exchange)
             .duration(200)
             .ease(d3.easeSinIn)
             .attr('stroke-dashoffset', 0);
@@ -314,13 +257,13 @@ export function drawBrokerChart(data, priceType, timeType, timeframe) {
             .attr('class', 'line-overlay')
             .style('fill', 'none') 
             .attr('d', line)
-            .attr('id', 'lineOverlay'+broker)
-            .style('display', brokersVisible[broker] ? 'block' : 'none')
+            .attr('id', 'lineOverlay'+exchange)
+            .style('display', exchangesVisible[exchange] ? 'block' : 'none')
             .style('stroke', 'transparent') 
             .style('stroke-width', 25) 
             .on('mouseover', function(event, d) {
 
-                d3.select('#line' + broker)
+                d3.select('#line' + exchange)
                     .transition()
                     .duration(200)
                     .style('opacity', 1);
@@ -346,8 +289,8 @@ export function drawBrokerChart(data, priceType, timeType, timeframe) {
 
                     tooltip
                         .style('visibility', 'visible')
-                        .html(`<span class="tooltip-title" style="color:var(--${broker})">
-                            ${broker.charAt(0).toUpperCase() + broker.slice(1)}
+                        .html(`<span class="tooltip-title" style="color:var(--${exchange})">
+                            ${exchange.charAt(0).toUpperCase() + exchange.slice(1)}
                         </span>
                         <span class="tooltip-price">
                             ${parsePrice(nearestDataPoint.value, priceType)}
@@ -364,7 +307,7 @@ export function drawBrokerChart(data, priceType, timeType, timeframe) {
                     .attr("cx", x(d3.isoParse(nearestDataPoint.created_at)))
                     .attr("cy", y(nearestDataPoint.value))
                     .attr("r", 8) 
-                    .style("fill", 'var(--' + broker)
+                    .style("fill", 'var(--' + exchange)
                     .style("stroke", "var(--main-bg)")
                     .style("stroke-width", 2)
                     .style("pointer-events", "none");
@@ -373,7 +316,7 @@ export function drawBrokerChart(data, priceType, timeType, timeframe) {
             .on('mouseout', () => {
                 g.selectAll(".hover-dot").remove(); 
                 d3.select('#tooltip').style('visibility', 'hidden')
-                d3.select('#line'+broker)
+                d3.select('#line'+exchange)
                     .transition()
                     .duration(300)
                     .style('opacity', 0.2);

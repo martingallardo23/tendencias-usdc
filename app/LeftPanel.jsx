@@ -1,4 +1,4 @@
-import { FrequencySlider, TimeFrameSlider, ChartTypeSlider, TypeSlider, BrokerList } from "@/components/Sliders";
+import { FrequencySlider, TimeFrameSlider, ChartTypeSlider, TypeSlider, ExchangeList } from "@/components/Sliders";
 
 const LeftPanel = () => {
 
@@ -10,7 +10,7 @@ const LeftPanel = () => {
         <FrequencySlider/>
         <TimeFrameSlider/>
         <ChartTypeSlider/>    
-        <BrokerList/>
+        <ExchangeList/>
 
         </div>
         <div className = 'text-sm text-white text-center w-[80%]'>

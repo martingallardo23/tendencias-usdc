@@ -4,7 +4,7 @@ import {  useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import Chart from '../app/Chart.jsx';
 import { useStore } from '@/store/zustand.js';
-import { calculateDaysSinceFirstDataPoint } from './functions.js';
+import { calculateDaysSinceFirstDataPoint } from '@/lib/aux-functions.js';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,

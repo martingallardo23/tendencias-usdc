@@ -202,7 +202,7 @@ button, a, input, textarea, [role="button"] {
   .title-secondary {
     display:block;
   }
-  .broker-list {
+  .exchange-list {
     width:90%;
   }
 }

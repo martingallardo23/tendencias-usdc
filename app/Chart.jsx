@@ -1,6 +1,6 @@
 "use client";
 
-import { drawLineChart, drawBrokerChart } from "./functions";
+import { drawLineChart, drawExchangeChart } from "./functions";
 import { useEffect, useState } from "react";
 import { useStore } from "@/store/zustand";
 
@@ -31,8 +31,8 @@ const Chart = () => {
 
     useEffect(() => {
         if (dimensions.width && dimensions.height) {
-            if (chartType === 'broker') {
-                drawBrokerChart(rawData, priceType, timeType, timeFrame);
+            if (chartType === 'exchange') {
+                drawExchangeChart(rawData, priceType, timeType, timeFrame);
             } else if (chartType === 'average') {
                 drawLineChart(rawData, priceType, timeType, timeFrame);
             }
