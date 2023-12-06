@@ -34,7 +34,10 @@ function getAverageData(data, priceType = 'ask', frequency = '1h', timeframe = '
   
  function getExchangeData(data, priceType = 'ask', frequency = '1h', timeframe = '7d') {
     let dataByExchange = {};
-    const exchanges = ['belo', 'bybit', 'ripio', 'lemoncash', 'buenbit', 'fiwind', 'tiendacrypto', 'satoshitango', 'letsbit'];
+    
+    const {exchangesVisible} = useExchangeList.getState();
+    
+    const exchanges = Object.keys(exchangesVisible)
   
     data
     .filter(record => isWithinTimeframe(record.created_at, timeframe))
