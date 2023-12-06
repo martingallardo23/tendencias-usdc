@@ -38,8 +38,12 @@ export const TimeFrameSlider = () => {
             <Tabs defaultValue = '7d' className = 'flex flex-row bg-none'>
               <TabsList className= 'flex flex-row gap-1'>
               <TabsTrigger value = '7d' onClick={() => setTimeFrame('7d')}>7d</TabsTrigger>
-              {/*<TabsTrigger value = '14d' onClick={() => setTimeFrame('14d')}>14d</TabsTrigger>
-              <TabsTrigger value = '30d' onClick={() => setTimeFrame('30d')}> 30d </TabsTrigger>*/}
+              {daysSinceFirst > 14 ? 
+                  <TabsTrigger value = '14d' onClick={() => setTimeFrame('14d')}>14d</TabsTrigger> : null
+                }  
+              { daysSinceFirst > 30 ?
+                <TabsTrigger value = '30d' onClick={() => setTimeFrame('30d')}> 30d </TabsTrigger> : null
+                }
               <TabsTrigger value = 'all' onClick={() => setTimeFrame('all')}> Máx. ({daysSinceFirst}d) </TabsTrigger>
               </TabsList>
             </Tabs>

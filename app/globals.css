@@ -160,12 +160,6 @@ button, a, input, textarea, [role="button"] {
   outline: none; 
 }
 
-@media (max-width:1130px) {
-  .slider {
-    
-  }
-}
-
 @media (max-width: 768px) {
   body {
     flex-direction:column-reverse;
