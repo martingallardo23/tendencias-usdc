@@ -1,6 +1,6 @@
 import { FrequencySlider, TimeFrameSlider, ChartTypeSlider, TypeSlider, ExchangeList } from "@/components/Sliders";
 
-const LeftPanel = () => {
+const LeftPanel = ({daysSinceFirst}) => {
 
     return(
         <div className ='w-[30%] bg-fgsecondary top-0 bottom-0 items-center flex flex-col justify-between gap-8 pt-10 pb-10' id = 'leftPanel'>
@@ -8,7 +8,7 @@ const LeftPanel = () => {
         <div className = 'w-auto flex flex-col justify-between items-center gap-4'>
         <TypeSlider/>
         <FrequencySlider/>
-        <TimeFrameSlider/>
+        <TimeFrameSlider daysSinceFirst={daysSinceFirst}/>
         <ChartTypeSlider/>    
         <ExchangeList/>
 

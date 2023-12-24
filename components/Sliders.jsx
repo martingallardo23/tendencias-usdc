@@ -26,11 +26,10 @@ export const FrequencySlider = () => {
     )
 }
 
-export const TimeFrameSlider = () => {
+export const TimeFrameSlider = ({daysSinceFirst}) => {
 
-    const [setTimeFrame, daysSinceFirst] = useStore((state) => [
-        state.setTimeFrame, state.daysSinceFirst
-      ]);
+    const [setTimeFrame] = useStore((state) => [
+        state.setTimeFrame]);
 
     return (
         <div className = 'flex flex-row rounded-full border pl-4 md:pl-5 pr-1 md:pr-2 py-0.5 md:py-1 bg-[var(--sliders-bg)] gap-3 items-center slider'> 

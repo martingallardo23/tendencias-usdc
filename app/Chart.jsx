@@ -4,8 +4,8 @@ import { drawLineChart, drawExchangeChart } from "./functions";
 import { useEffect, useState } from "react";
 import { useStore } from "@/store/zustand";
 
-const Chart = () => {
-    const [rawData, priceType, chartType, timeType, timeFrame] = useStore((state) => [state.rawData, state.priceType, state.chartType, state.timeType, state.timeFrame]);
+const Chart = ({rawData}) => {
+    const [priceType, chartType, timeType, timeFrame] = useStore((state) => [state.priceType, state.chartType, state.timeType, state.timeFrame]);
 
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     
