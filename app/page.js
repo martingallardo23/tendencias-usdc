@@ -16,21 +16,40 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchData() {
-      let { data: usdcExchangeRates, error } = await supabase
+      // Get the total count of rows in the table
+      let { count, error: countError } = await supabase
         .from('usdc_exchange_rates')
-        .select('*');
-
-      if (error) {
-        console.error(error);
+        .select('*', { count: 'exact' });
+  
+      if (countError) {
+        console.error(countError);
         return;
-      } {
-        setRawData(usdcExchangeRates);
-        setDaysSinceFirst(calculateDaysSinceFirstDataPoint(usdcExchangeRates));
       }
+  
+      let allData = [];
+      const pageSize = 1000; // Or any number up to 1000
+  
+      for (let i = 0; i < count; i += pageSize) {
+        let { data: usdcExchangeRates, error } = await supabase
+          .from('usdc_exchange_rates')
+          .select('*')
+          .range(i, i + pageSize - 1);
+  
+        if (error) {
+          console.error(error);
+          break; // Stop fetching if there is an error
+        }
+  
+        allData = allData.concat(usdcExchangeRates);
+      }
+  
+      setRawData(allData);
+      setDaysSinceFirst(calculateDaysSinceFirstDataPoint(allData));
     }
-
+  
     fetchData();
   }, []);
+  
 
   return (
     <div className = 'flex flex-row items-center justify-center m-auto h-full'>
