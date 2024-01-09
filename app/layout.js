@@ -4,6 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 import { calculateDaysSinceFirstDataPoint } from '@/lib/aux-functions';
 import Chart from './Chart';
 import { cache } from 'react'
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata = {
   title: 'Tendencias USDC',
@@ -69,6 +70,7 @@ export default async function RootLayout({ children }) {
         <div className = 'title-secondary'>
           Tendencias USDC
         </div>
+        <Analytics />
       </body>
     </html>
   )
