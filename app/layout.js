@@ -6,6 +6,8 @@ import Chart from './Chart';
 import { cache } from 'react'
 import { Analytics } from '@vercel/analytics/react';
 
+export const revalidate = 1800
+
 export const metadata = {
   title: 'Tendencias USDC',
   description: 'Serie histórica de USDC / ARS',
@@ -16,7 +18,6 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
-export const revalidate = 3600;
 
 const getData = cache( async () => {
   let { count, error: countError } = await supabase
