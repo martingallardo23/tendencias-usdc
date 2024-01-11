@@ -10,3 +10,32 @@ export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
+
+export const getData = async () => {
+  let { count, error: countError } = await supabase
+        .from('usdc_exchange_rates')
+        .select('*', { count: 'exact' });
+  
+  if (countError) {
+    console.error(countError);
+    return;
+  }
+
+  let allData = [];
+  const pageSize = 1000; 
+
+  for (let i = 0; i < count; i += pageSize) {
+    let { data: usdcExchangeRates, error } = await supabase
+      .from('usdc_exchange_rates')
+      .select('*')
+      .range(i, i + pageSize - 1);
+
+    if (error) {
+      console.error(error);
+      break; 
+    }
+
+    allData = allData.concat(usdcExchangeRates);
+  }
+  return allData;
+}

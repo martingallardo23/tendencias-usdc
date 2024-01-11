@@ -3,7 +3,7 @@ import LeftPanel from './LeftPanel'
 import { calculateDaysSinceFirstDataPoint } from '@/lib/aux-functions';
 import Chart from './Chart';
 import { Analytics } from '@vercel/analytics/react';
-import { supabase } from '@/lib/utils';
+import { getData } from '@/lib/utils';
 
 export const revalidate = 1800;
 
@@ -11,35 +11,6 @@ export const metadata = {
   title: 'Tendencias USDC',
   description: 'Serie histórica de USDC / ARS',
   google: 'notranslate'
-}
-
-const getData = async () => {
-  let { count, error: countError } = await supabase
-        .from('usdc_exchange_rates')
-        .select('*', { count: 'exact' });
-  
-  if (countError) {
-    console.error(countError);
-    return;
-  }
-
-  let allData = [];
-  const pageSize = 1000; 
-
-  for (let i = 0; i < count; i += pageSize) {
-    let { data: usdcExchangeRates, error } = await supabase
-      .from('usdc_exchange_rates')
-      .select('*')
-      .range(i, i + pageSize - 1);
-
-    if (error) {
-      console.error(error);
-      break; 
-    }
-
-    allData = allData.concat(usdcExchangeRates);
-  }
-  return allData;
 }
 
 export default async function RootLayout({ children }) {
