@@ -1,12 +1,11 @@
 import './globals.css'
 import LeftPanel from './LeftPanel'
-import { createClient } from '@supabase/supabase-js';
 import { calculateDaysSinceFirstDataPoint } from '@/lib/aux-functions';
 import Chart from './Chart';
-import { cache } from 'react'
 import { Analytics } from '@vercel/analytics/react';
+import { supabase } from '@/lib/utils';
 
-export const revalidate = 1800
+export const revalidate = 1800;
 
 export const metadata = {
   title: 'Tendencias USDC',
@@ -14,12 +13,7 @@ export const metadata = {
   google: 'notranslate'
 }
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
-
-const getData = cache( async () => {
+const getData = async () => {
   let { count, error: countError } = await supabase
         .from('usdc_exchange_rates')
         .select('*', { count: 'exact' });
@@ -46,7 +40,7 @@ const getData = cache( async () => {
     allData = allData.concat(usdcExchangeRates);
   }
   return allData;
-})
+}
 
 export default async function RootLayout({ children }) {
 
