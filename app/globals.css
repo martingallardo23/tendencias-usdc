@@ -140,6 +140,7 @@ svg {
 
 #leftPanel {
   min-height:100vh;
+  background: linear-gradient(135deg, rgba(21,122,73,1) 0%, #21C073 100%);
 }
 
 .title-secondary {
