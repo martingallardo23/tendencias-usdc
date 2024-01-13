@@ -37,5 +37,11 @@ export const getData = async () => {
 
     allData = allData.concat(usdcExchangeRates);
   }
+
+  allData = allData.filter((item) => {
+    const date = new Date(item.created_at);
+    return date.getMinutes() === 0;
+  });
+
   return allData;
 }
