@@ -61,8 +61,8 @@ export const TypeSlider = () => {
             <span className = 'font-bold text-base md:text-lg'>Precio</span> 
             <Tabs defaultValue = 'bids' className = 'flex flex-row bg-none'>
               <TabsList className= 'flex flex-row gap-1'>
-              <TabsTrigger value = 'bids' onClick={() => setPriceType('bid')}>Venta</TabsTrigger>
-              <TabsTrigger value = 'ask' onClick={() => setPriceType('ask')}>Compra</TabsTrigger>
+              <TabsTrigger value = 'bids' onClick={() => setPriceType('bid')}>Compra</TabsTrigger>
+              <TabsTrigger value = 'ask' onClick={() => setPriceType('ask')}>Venta</TabsTrigger>
               <TabsTrigger value = 'spread' onClick={() => setPriceType('spread')}> Spread </TabsTrigger>
               </TabsList>
             </Tabs>
