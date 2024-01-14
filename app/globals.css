@@ -35,7 +35,7 @@
     --radius: 0.5rem;
 
     --secondary-bg: 44 84% 68%;
-    --secondary-fg: 151 71% 28%;
+    --secondary-fg: 151 71% 32%;
 
     --belo :  #3c00fe;
     --bybit :  #522298;
@@ -50,7 +50,7 @@
     --main-bg: #f2f8f2;
     --sliders-bg: #D7EAD7;
     --green-focus: #0F5734;
-    --green-main: #157A49;
+    --green-main: #188C54;
     --orange-main: #EAB41F;
   }
  
@@ -127,7 +127,6 @@ body {
   color: var(--main-bg);
   font-size: 1.6rem;
   font-weight: 700;
-  border: 3px solid var(--main-bg);
   border-radius: 9999px;
   padding: 10px 20px;
   background-color: #12693F;

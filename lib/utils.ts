@@ -37,7 +37,6 @@ export const getData = async () => {
 
     allData = allData.concat(usdcExchangeRates);
   }
-// remove every other row in allData
 
   allData = allData.filter((_, i) => i % 2 === 0);
   
