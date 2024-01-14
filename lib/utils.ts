@@ -37,11 +37,9 @@ export const getData = async () => {
 
     allData = allData.concat(usdcExchangeRates);
   }
+// remove every other row in allData
 
-  allData = allData.filter((item) => {
-    const date = new Date(item.created_at);
-    return date.getMinutes() === 0;
-  });
-
+  allData = allData.filter((_, i) => i % 2 === 0);
+  
   return allData;
 }
