@@ -142,7 +142,7 @@ export const ExchangeList = () => {
           .filter(exchange => exchange !== 'undefined') 
           .map(exchange => (
               <Toggle className = " flex flex-row items-center gap-2 rounded-full data-[state=on]:bg-[var(--green-focus)]
-              data-[state=on]:text-[var(--sliders-bg)] data-[state=off]:text-[var(--sliders-bg)] hover:bg-[#12693F]
+              data-[state=on]:text-[var(--sliders-bg)] data-[state=off]:text-[var(--sliders-bg)] hover:bg-[#1B9D5E]
               hover:text-black data-[state=on]:hover:outline " name = {exchange} defaultPressed = {exchangesVisible[exchange]} key = {exchange}
               onPressedChange = {handleExchangeVisibilityChange} onMouseOver = {event => hoverOver(event)} onMouseOut = {event => hoverOut(event)} >
                 <div className = 'w-2 h-2 rounded-full' style={{backgroundColor:`var(--${exchange})`, outline: '2px solid var(--sliders-bg)'}}></div>
