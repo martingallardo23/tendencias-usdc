@@ -1,9 +1,9 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
-import { createClient } from "@supabase/supabase-js"
- 
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+import { createClient } from "@supabase/supabase-js";
+
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export const supabase = createClient(
@@ -13,32 +13,32 @@ export const supabase = createClient(
 
 export const getData = async () => {
   let { count, error: countError } = await supabase
-        .from('usdc_exchange_rates')
-        .select('*', { count: 'exact' });
-  
+    .from("usdc_exchange_rates")
+    .select("*", { count: "exact" });
+
   if (countError) {
     console.error(countError);
     return;
   }
 
   let allData = [];
-  const pageSize = 1000; 
+  const pageSize = 1000;
 
   for (let i = 0; i < count; i += pageSize) {
     let { data: usdcExchangeRates, error } = await supabase
-      .from('usdc_exchange_rates')
-      .select('*')
+      .from("usdc_exchange_rates")
+      .select("*")
       .range(i, i + pageSize - 1);
 
     if (error) {
       console.error(error);
-      break; 
+      break;
     }
 
     allData = allData.concat(usdcExchangeRates);
   }
 
   allData = allData.filter((_, i) => i % 2 === 0);
-  
+
   return allData;
-}
+};

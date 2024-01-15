@@ -6,7 +6,7 @@ export const useStore = create((set) => ({
     chartType: 'average',
     timeType: '1h',
     timeFrame: '7d',
-    daysSinceFirst : 0,
+    daysSinceFirst: 0,
     setRawData: (data) => set({ rawData: data }),
     setPriceType: (type) => set({ priceType: type }),
     setChartType: (type) => set({ chartType: type }),
@@ -17,15 +17,15 @@ export const useStore = create((set) => ({
 
 export const useExchangeList = create((set) => ({
     exchangesVisible: {
-        belo : true,
-        bybit : true,
-        ripio : true,
-        lemoncash : true,
-        buenbit : true,
-        fiwind : true,
-        tiendacrypto : true,
-        satoshitango : true,
-        letsbit : true,
+        belo: true,
+        bybit: true,
+        ripio: true,
+        lemoncash: true,
+        buenbit: true,
+        fiwind: true,
+        tiendacrypto: true,
+        satoshitango: true,
+        letsbit: true,
     },
     setExchangesVisible: (exchanges) => set({ exchangesVisible: exchanges })
 }))

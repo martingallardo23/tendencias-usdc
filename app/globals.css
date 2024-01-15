@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -9,82 +9,82 @@
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
- 
+
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
- 
+
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
- 
+
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
- 
+
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
- 
+
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
- 
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
- 
+
     --radius: 0.5rem;
 
     --secondary-bg: 44 84% 68%;
     --secondary-fg: 151 71% 32%;
 
-    --belo :  #3c00fe;
-    --bybit :  #522298;
-    --ripio :  #7809fe;
-    --lemoncash :  #4beb55;
-    --buenbit :  #ffabea;
-    --fiwind :  #f9bd06;
-    --tiendacrypto :  #6761ab;
-    --satoshitango : #1d43fc;
-    --letsbit : #522298;
+    --belo: #3c00fe;
+    --bybit: #522298;
+    --ripio: #7809fe;
+    --lemoncash: #4beb55;
+    --buenbit: #ffabea;
+    --fiwind: #f9bd06;
+    --tiendacrypto: #6761ab;
+    --satoshitango: #1d43fc;
+    --letsbit: #522298;
 
     --main-bg: #f2f8f2;
-    --sliders-bg: #D7EAD7;
-    --green-focus: #157A49;
-    --green-main: #188C54;
-    --orange-main: #EAB41F;
+    --sliders-bg: #d7ead7;
+    --green-focus: #157a49;
+    --green-main: #188c54;
+    --orange-main: #eab41f;
   }
- 
+
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
- 
+
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
- 
+
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
- 
+
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
- 
+
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
- 
+
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
- 
+
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
- 
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
- 
+
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
@@ -97,15 +97,15 @@
 body {
   color: var(--green-main);
   background: var(--main-bg);
-  display:flex;
-  flex-direction:row;
-  overflow-x:hidden;
+  display: flex;
+  flex-direction: row;
+  overflow-x: hidden;
   align-items: center;
 }
 
 .container {
-  margin-top:30px;
-  margin-bottom:50px;
+  margin-top: 30px;
+  margin-bottom: 50px;
 }
 
 .tooltip-title {
@@ -129,57 +129,60 @@ body {
   font-weight: 700;
   border-radius: 9999px;
   padding: 10px 20px;
-  background-color: #12693F;
+  background-color: #12693f;
 }
 
 svg {
-  max-width:100%;
-  height:auto
+  max-width: 100%;
+  height: auto;
 }
 
 #leftPanel {
-  min-height:100vh;
-  background: linear-gradient(135deg, rgba(21,122,73,1) 0%, #21C073 100%);
+  min-height: 100vh;
+  background: linear-gradient(135deg, rgba(21, 122, 73, 1) 0%, #21c073 100%);
 }
 
 .title-secondary {
   display: none;
-  margin-top:20px;
-  border-radius:9999px;
-  padding:5px 20px;
-  background-color: #E4F1E4;
-  color:var(--green-main);
-  font-size:1.1rem;
-  font-weight:700;
-
+  margin-top: 20px;
+  border-radius: 9999px;
+  padding: 5px 20px;
+  background-color: #e4f1e4;
+  color: var(--green-main);
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
-button, a, input, textarea, [role="button"] {
-  -webkit-tap-highlight-color: transparent; 
-  touch-action: manipulation; 
-  outline: none; 
+button,
+a,
+input,
+textarea,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  outline: none;
 }
 
 @media (max-width: 768px) {
   body {
-    flex-direction:column-reverse;
+    flex-direction: column-reverse;
   }
 
   #leftPanel {
-    width:100%;
-    height:auto;
-    gap:30px;
-    min-height:0;
+    width: 100%;
+    height: auto;
+    gap: 30px;
+    min-height: 0;
   }
   #chartContainer {
-    height:40vh;
+    height: 40vh;
     min-height: 200px;
-    width:100%;
-    position:static;
+    width: 100%;
+    position: static;
   }
 
   #tooltip {
-    position:absolute !important;
+    position: absolute !important;
     padding: 5px 15px !important;
   }
 
@@ -197,12 +200,12 @@ button, a, input, textarea, [role="button"] {
     font-weight: 400 !important;
   }
   .title {
-    display:none;
+    display: none;
   }
   .title-secondary {
-    display:block;
+    display: block;
   }
   .exchange-list {
-    width:90%;
+    width: 90%;
   }
 }

@@ -24,16 +24,16 @@ export default async function RootLayout({ children }) {
         <title>{metadata.title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        <meta httpEquiv="Content-Language" content="es"/>
+        <meta httpEquiv="Content-Language" content="es" />
       </head>
       <body>
-        <LeftPanel rawData={rawData} daysSinceFirst = {daysSinceFirst} />
-        <div className="fixed top-0 right-0 flex flex-row justify-center items-center h-[100vh] w-[70%]" id = "chartContainer">
-          <div className = 'flex flex-row items-center justify-center m-auto h-full'>
-              <Chart rawData = {rawData}/>
+        <LeftPanel rawData={rawData} daysSinceFirst={daysSinceFirst} />
+        <div className="fixed top-0 right-0 flex flex-row justify-center items-center h-[100vh] w-[70%]" id="chartContainer">
+          <div className='flex flex-row items-center justify-center m-auto h-full'>
+            <Chart rawData={rawData} />
           </div>
         </div>
-        <div className = 'title-secondary'>
+        <div className='title-secondary'>
           Tendencias USDC
         </div>
         <Analytics />

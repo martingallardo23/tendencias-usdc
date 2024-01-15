@@ -6,7 +6,7 @@ module.exports = {
     './components/**/*.{js,jsx,ts,tsx}',
     './app/**/*.{js,jsx,ts,tsx}',
     './src/**/*.{js,jsx,ts,tsx}',
-	],
+  ],
   theme: {
     container: {
       center: true,
@@ -22,8 +22,8 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        bgsecondary : "hsl(var(--secondary-bg))",
-        fgsecondary : "hsl(var(--secondary-fg))",
+        bgsecondary: "hsl(var(--secondary-bg))",
+        fgsecondary: "hsl(var(--secondary-fg))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

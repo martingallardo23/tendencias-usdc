@@ -1,8 +1,8 @@
 
-export default function Home({rawData}) {
+export default function Home({ rawData }) {
 
   return (
-      <>
-      </>
+    <>
+    </>
   )
 }
