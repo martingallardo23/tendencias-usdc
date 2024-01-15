@@ -120,7 +120,8 @@ export const ExchangeList = () => {
         d3.select(`#line${exchange}`)
         .transition()
         .duration(100)
-        .style('opacity', '1');
+        .style('opacity', '1')
+        .attr('stroke-width', '4');
       }
     }
 
@@ -131,7 +132,8 @@ export const ExchangeList = () => {
         d3.select(`#line${exchange}`)
         .transition()
         .duration(100)
-        .style('opacity', '0.2');
+        .style('opacity', '0.2')
+        .attr('stroke-width', '3');
       }
     }
 
