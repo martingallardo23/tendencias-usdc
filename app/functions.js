@@ -237,7 +237,7 @@ export function drawExchangeChart(data, priceType, timeType, timeframe) {
         const path = g.append('path')
             .datum(data)
             .attr('fill', 'none')
-            .attr('stroke', 'var(--' + exchange)
+            .attr('stroke', 'var(--' + exchange + ")")
             .attr('stroke-linejoin', 'round')
             .attr('stroke-linecap', 'round')
             .attr('stroke-width', 3)
@@ -266,15 +266,24 @@ export function drawExchangeChart(data, priceType, timeType, timeframe) {
             .style('stroke-width', 25) 
             .on('mouseover', function(event, d) {
 
-                d3.select('#line' + exchange)
+                const exchangeLine = d3.select('#line' + exchange);
+
+                d3.select('#tooltip')
+                .style('visibility', 'visible')
+
+                exchangeLine
                     .transition()
                     .duration(200)
-                    .style('opacity', 1);
+                    .style('opacity', 1)
+                    .attr('stroke-width', 4);
                 
-                    d3.select('#tooltip')
-                    .style('visibility', 'visible')
-                    const lineToTop = d3.select(this);
-                    lineToTop.node().parentNode.appendChild(lineToTop.node());
+                exchangeLine
+                    .node().parentNode.appendChild(exchangeLine.node());
+                    
+                const lineOverlay = d3.select(this)
+
+                lineOverlay
+                    .node().parentNode.appendChild(lineOverlay.node());
                     
                 })
             .on('mousemove', function(event, d) {
@@ -322,7 +331,8 @@ export function drawExchangeChart(data, priceType, timeType, timeframe) {
                 d3.select('#line'+exchange)
                     .transition()
                     .duration(300)
-                    .style('opacity', 0.2);
+                    .style('opacity', 0.2)
+                    .attr('stroke-width', 3);
             });
     });
 }
