@@ -181,7 +181,6 @@ export function drawLineChart(rawData, priceType, timeType, timeframe) {
           left = event.clientX - tooltipWidth - 10;
         }
 
-
         guideLineVertical
           .attr('x1', x(d3.isoParse(nearestDataPoint.created_at)))
           .attr('x2', x(d3.isoParse(nearestDataPoint.created_at)))

@@ -4,6 +4,7 @@ import { calculateDaysSinceFirstDataPoint } from '@/lib/aux-functions';
 import Chart from './Chart';
 import { Analytics } from '@vercel/analytics/react';
 import { getData } from '@/lib/utils';
+import { unstable_noStore } from 'next/cache';
 
 export const revalidate = 1800;
 
@@ -14,6 +15,7 @@ export const metadata = {
 }
 
 export default async function RootLayout({ children }) {
+  unstable_noStore();
 
   const rawData = await getData();
   const daysSinceFirst = calculateDaysSinceFirstDataPoint(rawData);
