@@ -3,8 +3,10 @@
 import { drawLineChart, drawExchangeChart } from "./functions";
 import { useEffect, useState } from "react";
 import { useStore } from "@/store/zustand";
+import { unstable_noStore } from "next/cache";
 
 const Chart = ({ rawData }) => {
+  unstable_noStore();
   const [priceType, chartType, timeType, timeFrame] = useStore((state) => [
     state.priceType,
     state.chartType,
