@@ -5,7 +5,7 @@ import Chart from './Chart';
 import { Analytics } from '@vercel/analytics/react';
 import { getData } from '@/lib/utils';
 
-export const revalidate = 600;
+export const revalidate = 1800;
 
 export const metadata = {
   title: 'Tendencias USDC',
