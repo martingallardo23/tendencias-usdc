@@ -137,6 +137,16 @@ export const ExchangeList = () => {
         .duration(100)
         .style("opacity", "1")
         .attr("stroke-width", "4");
+
+        const exchangeLine = d3.select('#line' + exchange);
+
+        exchangeLine
+          .node().parentNode.appendChild(exchangeLine.node());
+
+        const lineOverlay = d3.select('#lineOverlay' + exchange);
+
+        lineOverlay
+          .node().parentNode.appendChild(lineOverlay.node());
     }
   }
 
