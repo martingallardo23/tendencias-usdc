@@ -41,7 +41,7 @@ const LeftPanel = ({ daysSinceFirst }) => {
           className="font-semibold text-[#FFD2AD]"
         >
           GitHub
-        </a> <span className="opacity-70"> (Martín está buscando empleo intensamente. Si el sitio te resulta útil por favor considerá <a href="mailto:martin.gallardo23@gmail.com" target="_blank" className=" underline underline-offset-2">contactarlo</a>. ¡Martín puede hacer otras cosas también!)</span>
+        </a>. <span className="opacity-70"> (Martín está buscando empleo intensamente. Si el sitio te resulta útil por favor considerá <a href="mailto:martin.gallardo23@gmail.com" target="_blank" className=" underline underline-offset-2">contactarlo</a>. ¡Martín puede hacer otras cosas también!)</span>
         .
       </div>
     </div>
