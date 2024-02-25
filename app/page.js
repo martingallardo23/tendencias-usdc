@@ -3,7 +3,7 @@ import Chart from "./Chart";
 import LeftPanel from "./LeftPanel";
 import { calculateDaysSinceFirstDataPoint } from "@/lib/aux-functions";
 
-export const revalidate = 1800
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
 
