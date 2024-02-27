@@ -61,7 +61,7 @@ const Chart = () => {
 
   return (
     <>    
-    {loading ? <div class="loader"></div> : 
+    {loading ? <div className="loader"></div> : 
     <div className="flex flex-col relative">
       {dimensions.width && dimensions.height && (
         <svg
