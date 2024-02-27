@@ -41,11 +41,5 @@ export const getData = cache(async () => {
 
   allData = allData.filter((_, i) => i % 2 === 0);
 
-    // Convert the data to a JSON string and measure its length
-    const jsonString = JSON.stringify(allData);
-    const sizeInBytes = new Blob([jsonString]).size;
-    const sizeInMegabytes = sizeInBytes / (1024 * 1024);
-    console.log(`Data size: ${sizeInMegabytes.toFixed(2)} MB`);
-
   return allData;
 });

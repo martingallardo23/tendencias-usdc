@@ -209,3 +209,18 @@ textarea,
     width: 90%;
   }
 }
+
+.loader {
+  height: 15px;
+  aspect-ratio: 6;
+  --c: #00000000 64%,#eab41f 66% 98%,#0000 101%;
+  background:
+    radial-gradient(35% 146% at 50% 159%,var(--c)) 0 0,
+    radial-gradient(35% 146% at 50% -59%,var(--c)) 25% 100%;
+  background-size: calc(100%/3) 50%;
+  background-repeat: repeat-x;
+  animation: l1 1s infinite linear;
+}
+@keyframes l1{
+  to {background-position: 50% 0,75% 100%}
+}

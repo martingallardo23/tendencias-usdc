@@ -3,8 +3,9 @@
 import { drawLineChart, drawExchangeChart } from "./functions";
 import { useEffect, useState } from "react";
 import { useStore } from "@/store/zustand";
+import { getData } from "@/lib/utils";
 
-const Chart = ({ rawData }) => {
+const Chart = () => {
   const [priceType, chartType, timeType, timeFrame] = useStore((state) => [
     state.priceType,
     state.chartType,
@@ -13,30 +14,34 @@ const Chart = ({ rawData }) => {
   ]);
 
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [rawData, setRawData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // console log the size in mb of rawData
-   console.log(
-     "Size of rawData in MB: ",
-     (JSON.stringify(rawData).length / (1024 * 1024)).toFixed(2)
-   );
+  function updateDimensions() {
+    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+    const chartContainer = document.querySelector("#chartContainer");
+    if (chartContainer) {
+      setDimensions({
+        width: isDesktop
+          ? 0.8 * chartContainer.clientWidth
+          : chartContainer.clientWidth * 0.98,
+        height: isDesktop
+          ? (2 * chartContainer.clientHeight) / 3
+          : chartContainer.clientHeight * 0.95,
+      });
+    }
+  }
 
   useEffect(() => {
-    function updateDimensions() {
-      const isDesktop = window.matchMedia("(min-width: 768px)").matches;
-      const chartContainer = document.querySelector("#chartContainer");
-      if (chartContainer) {
-        setDimensions({
-          width: isDesktop
-            ? 0.8 * chartContainer.clientWidth
-            : chartContainer.clientWidth * 0.98,
-          height: isDesktop
-            ? (2 * chartContainer.clientHeight) / 3
-            : chartContainer.clientHeight * 0.95,
-        });
-      }
+
+    async function fetchData() {
+      const data = await getData();
+      setRawData(data);
+      setLoading(false);
+      updateDimensions();
     }
 
-    updateDimensions();
+    fetchData();
 
     window.addEventListener("resize", updateDimensions);
 
@@ -44,17 +49,20 @@ const Chart = ({ rawData }) => {
   }, []);
 
   useEffect(() => {
+    if (!loading) {
     if (dimensions.width && dimensions.height) {
       if (chartType === "exchange") {
         drawExchangeChart(rawData, priceType, timeType, timeFrame);
       } else if (chartType === "average") {
         drawLineChart(rawData, priceType, timeType, timeFrame);
       }
-    }
-  }, [dimensions, rawData, priceType, chartType, timeType, timeFrame]);
+    }}
+  }, [loading, dimensions, priceType, chartType, timeType, timeFrame]);
 
   return (
-    <>
+    <>    
+    {loading ? <div class="loader"></div> : 
+    <div className="flex flex-col relative">
       {dimensions.width && dimensions.height && (
         <svg
           width={dimensions.width}
@@ -74,6 +82,8 @@ const Chart = ({ rawData }) => {
           color: "black",
         }}
       ></div>
+    </div>
+}
     </>
   );
 };
