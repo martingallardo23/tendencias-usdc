@@ -14,6 +14,12 @@ const Chart = ({ rawData }) => {
 
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
+  // console log the size in mb of rawData
+   console.log(
+     "Size of rawData in MB: ",
+     (JSON.stringify(rawData).length / (1024 * 1024)).toFixed(2)
+   );
+
   useEffect(() => {
     function updateDimensions() {
       const isDesktop = window.matchMedia("(min-width: 768px)").matches;
