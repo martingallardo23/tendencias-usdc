@@ -55,7 +55,7 @@ export const TimeFrameSlider = ({ daysSinceFirst }) => {
           ) : null}
           <TabsTrigger value="all" onClick={() => setTimeFrame("all")}>
             {" "}
-            Máx. ({daysSinceFirst}d){" "}
+            Máx. {/*({daysSinceFirst}d){" "}*/}
           </TabsTrigger>
         </TabsList>
       </Tabs>
