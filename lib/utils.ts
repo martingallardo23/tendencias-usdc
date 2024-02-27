@@ -1,7 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { createClient } from "@supabase/supabase-js";
-import { cache } from 'react';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -12,7 +11,7 @@ export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
-export const getData = cache(async () => {
+export const getData = async () => {
   let { count, error: countError } = await supabase
     .from("usdc_exchange_rates")
     .select("*", { count: "exact" });
@@ -42,4 +41,4 @@ export const getData = cache(async () => {
   allData = allData.filter((_, i) => i % 2 === 0);
 
   return allData;
-});
+};
