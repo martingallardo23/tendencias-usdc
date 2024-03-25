@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useStore } from "@/store/zustand";
 import { getData } from "@/lib/utils";
 
-const Chart = () => {
+const Chart = ({cotizaciones}) => {
   const [priceType, chartType, timeType, timeFrame] = useStore((state) => [
     state.priceType,
     state.chartType,
@@ -36,6 +36,7 @@ const Chart = () => {
 
     async function fetchData() {
       const data = await getData();
+      console.log(data)
       setRawData(data);
       setLoading(false);
       updateDimensions();
@@ -62,7 +63,7 @@ const Chart = () => {
   return (
     <>    
     {loading ? <div className="loader"></div> : 
-    <div className="flex flex-col relative">
+    <div>
       {dimensions.width && dimensions.height && (
         <svg
           width={dimensions.width}
@@ -82,6 +83,17 @@ const Chart = () => {
           color: "black",
         }}
       ></div>
+      {/*
+      <div className="flex gap-3">
+        {cotizaciones.map((cotizacion) => (
+          <span
+            key={cotizacion.nombre}
+            className="mr-2 inline-block rounded-full bg-[#e4f1e4] px-4 py-2 w-fit">
+            <strong>Dolar {cotizacion.nombre}:</strong> ${cotizacion.compra} / ${cotizacion.venta}
+          </span>
+        ))}
+      </div>
+       */}
     </div>
 }
     </>

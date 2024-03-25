@@ -17,8 +17,12 @@ export const useStore = create((set) => ({
 
 export const useExchangeList = create((set) => ({
     exchangesVisible: {
+        trubit: true,
+        latamex: true,
+        cocoscrypto: true,
+        vibrant: true,
         belo: true,
-        bybit: true,
+        bybitp2p:true,
         ripio: true,
         lemoncash: true,
         buenbit: true,

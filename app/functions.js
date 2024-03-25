@@ -22,40 +22,59 @@ function makeGuideLines(g) {
   return [guideLineVertical, guideLineHorizontal];
 }
 
+
 function getAverageData(data, priceType = 'ask', frequency = '1h', timeframe = '7d') {
   let aggregatedData = {};
 
+  const { exchangesVisible } = useExchangeList.getState();
   data
     .filter(record => isWithinTimeframe(record.created_at, timeframe))
     .forEach(record => {
-      const roundedTime = roundTime(record.created_at, frequency);
-      const key = roundedTime.toISOString();
+        const roundedTime = roundTime(record.created_at, frequency);
+        const key = roundedTime.toISOString();
 
-      if (!aggregatedData[key]) {
-        aggregatedData[key] = { sum: 0, count: 0 };
-      }
+        if (!aggregatedData[key]) {
+            aggregatedData[key] = { sum: 0, count: 0, spreadSum: 0 }; // spreadSum for average spread
+        }
 
-      const singleValues = Object.keys(record)
-        .filter(key => key.endsWith(priceType === 'ask' || priceType === 'bid' ? `_total${priceType}` : `_spread_percentage`))
-        .map(key => record[key]);
+        Object.keys(record.response).forEach(platform => {
+            if (!exchangesVisible[platform]) {
+                return;
+            }
+            const askValue = record.response[platform]['totalAsk'];
+            const bidValue = record.response[platform]['totalBid'];
 
-      const averageData = singleValues.reduce((sum, value) => sum + value, 0) / singleValues.length;
-      aggregatedData[key].sum += averageData;
-      aggregatedData[key].count++;
+            if (priceType === 'spread') {
+                // Calculate spread for each platform and accumulate
+                const spread = (askValue - bidValue) / ((askValue + bidValue) / 2);
+                aggregatedData[key].spreadSum += spread;
+            } else {
+                // Determine which price type we're adding
+                const value = priceType === 'ask' ? askValue : bidValue;
+                aggregatedData[key].sum += value;
+            }
+            aggregatedData[key].count++;
+        });
     });
 
-  return Object.keys(aggregatedData).map(key => ({
-    created_at: key,
-    value: aggregatedData[key].sum / aggregatedData[key].count
-  }));
+  return Object.keys(aggregatedData).map(key => {
+      if (priceType === 'spread') {
+          // Calculate average spread for the time slot
+          const averageSpread = aggregatedData[key].spreadSum / aggregatedData[key].count;
+          return { created_at: key, value: averageSpread }; // Spread as percentage
+      } else {
+          // Calculate average price for 'ask' or 'bid'
+          const averageValue = aggregatedData[key].sum / aggregatedData[key].count;
+          return { created_at: key, value: averageValue };
+      }
+  });
 }
 
 function getExchangeData(data, priceType = 'ask', frequency = '1h', timeframe = '7d') {
   let dataByExchange = {};
 
+  // Retrieve the state for visible exchanges
   const { exchangesVisible } = useExchangeList.getState();
-
-  const exchanges = Object.keys(exchangesVisible)
 
   data
     .filter(record => isWithinTimeframe(record.created_at, timeframe))
@@ -63,7 +82,11 @@ function getExchangeData(data, priceType = 'ask', frequency = '1h', timeframe = 
       const roundedTime = roundTime(record.created_at, frequency);
       const key = roundedTime.toISOString();
 
-      exchanges.forEach(exchange => {
+      Object.keys(record.response).forEach(exchange => {
+        if (!exchangesVisible[exchange]) {
+          return; // Skip exchanges not in the visible list
+        }
+
         if (!dataByExchange[exchange]) {
           dataByExchange[exchange] = {};
         }
@@ -71,7 +94,15 @@ function getExchangeData(data, priceType = 'ask', frequency = '1h', timeframe = 
           dataByExchange[exchange][key] = { sum: 0, count: 0 };
         }
 
-        const value = record[priceType === 'bid' || priceType === 'ask' ? `${exchange}_total${priceType}` : `${exchange}_spread_percentage`];
+        let value = 0;
+        if (priceType === 'ask' || priceType === 'bid') {
+          value = record.response[exchange][`total${priceType.charAt(0).toUpperCase() + priceType.slice(1)}`]; // Use totalAsk or totalBid
+        } else if (priceType === 'spread') {
+          const askValue = record.response[exchange]['totalAsk'];
+          const bidValue = record.response[exchange]['totalBid'];
+          value = (askValue - bidValue) / ((askValue + bidValue) / 2); // Calculate spread as value
+        }
+
         dataByExchange[exchange][key].sum += value;
         dataByExchange[exchange][key].count++;
       });
@@ -80,7 +111,7 @@ function getExchangeData(data, priceType = 'ask', frequency = '1h', timeframe = 
   Object.keys(dataByExchange).forEach(exchange => {
     dataByExchange[exchange] = Object.keys(dataByExchange[exchange]).map(key => ({
       created_at: key,
-      value: dataByExchange[exchange][key].sum / dataByExchange[exchange][key].count
+      value: dataByExchange[exchange][key].count > 0 ? dataByExchange[exchange][key].sum / dataByExchange[exchange][key].count : 0
     }));
   });
 
@@ -240,9 +271,9 @@ export function drawLineChart(rawData, priceType, timeType, timeframe) {
 export function drawExchangeChart(data, priceType, timeType, timeframe) {
   d3.select('#chart').selectAll('*').remove();
 
+  const { exchangesVisible } = useExchangeList.getState();
   const dataByExchange = getExchangeData(data, priceType, timeType, timeframe);
 
-  const { exchangesVisible } = useExchangeList.getState();
 
   const { svg, g, x, y, width, height } = setupChart();
 

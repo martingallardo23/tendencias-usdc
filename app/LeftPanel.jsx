@@ -41,8 +41,7 @@ const LeftPanel = ({ daysSinceFirst }) => {
           className="font-semibold text-[#FFD2AD]"
         >
           GitHub
-        </a>. 
-        .
+        </a>.
       </div>
     </div>
   );
