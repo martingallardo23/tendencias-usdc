@@ -22,7 +22,6 @@ export const useExchangeList = create((set) => ({
         cocoscrypto: true,
         vibrant: true,
         belo: true,
-        bybitp2p:true,
         ripio: true,
         lemoncash: true,
         buenbit: true,
